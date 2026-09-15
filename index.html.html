@@ -894,6 +894,397 @@ footer strong{
         height:170px;
     }
 }
+
+/* =========================================================
+   AUTHENTICATION STYLING (BLACK + GOLD + EMERALD)
+   ========================================================= */
+
+.auth-wrapper{
+    max-width:480px;
+    margin:0 auto;
+    width:100%;
+}
+
+.auth-card{
+    position:relative;
+    border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    backdrop-filter:blur(20px);
+    border-radius:26px;
+    padding:38px 34px;
+    box-shadow:0 30px 90px rgba(0,0,0,.6);
+    overflow:hidden;
+}
+
+.auth-card:before{
+    content:"";
+    position:absolute;
+    width:160px;
+    height:160px;
+    right:-60px;
+    top:-60px;
+    background:rgba(212,175,55,.1);
+    filter:blur(40px);
+    border-radius:50%;
+    pointer-events:none;
+}
+
+.auth-card:after{
+    content:"";
+    position:absolute;
+    width:140px;
+    height:140px;
+    left:-50px;
+    bottom:-50px;
+    background:rgba(16,185,129,.07);
+    filter:blur(40px);
+    border-radius:50%;
+    pointer-events:none;
+}
+
+.auth-header{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.auth-header h2{
+    font-size:28px;
+    letter-spacing:-.8px;
+    margin-bottom:8px;
+}
+
+.auth-header p{
+    color:#888;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.form-group{
+    margin-bottom:18px;
+    position:relative;
+}
+
+.input-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+}
+
+.input-icon{
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    width:18px;
+    height:18px;
+    color:#777;
+    pointer-events:none;
+    transition:.2s;
+}
+
+.input-with-icon{
+    padding-left:44px !important;
+}
+
+.input-with-toggle{
+    padding-right:44px !important;
+}
+
+.input-wrap:focus-within .input-icon{
+    color:#d4af37;
+}
+
+.pwd-toggle-btn{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:#777;
+    cursor:pointer;
+    padding:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:6px;
+    transition:.2s;
+}
+
+.pwd-toggle-btn svg{
+    width:18px;
+    height:18px;
+}
+
+.pwd-toggle-btn:hover{
+    color:#d4af37;
+    background:rgba(255,255,255,.06);
+}
+
+/* Password Strength Indicator */
+.password-strength-wrap{
+    margin-top:8px;
+}
+
+.strength-track{
+    width:100%;
+    height:5px;
+    background:rgba(255,255,255,.08);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.strength-bar{
+    height:100%;
+    width:0%;
+    border-radius:10px;
+    transition:width .35s ease, background-color .35s ease;
+}
+
+.strength-meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:#888;
+    margin-top:5px;
+}
+
+.auth-row-between{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:14px 0 20px;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.auth-checkbox-label{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:#aaa;
+    cursor:pointer;
+    user-select:none;
+}
+
+.auth-checkbox-label input[type="checkbox"]{
+    width:16px;
+    height:16px;
+    accent-color:#d4af37;
+    cursor:pointer;
+    margin:0;
+}
+
+.auth-link{
+    color:#d4af37;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.auth-link:hover{
+    color:#f5e297;
+    text-decoration:underline;
+}
+
+.btn-auth-submit{
+    width:100%;
+    padding:14px;
+    font-size:15px;
+    font-weight:700;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.btn-auth-submit:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none !important;
+}
+
+.spinner{
+    display:inline-block;
+    width:16px;
+    height:16px;
+    border:2px solid rgba(0,0,0,.25);
+    border-top-color:#050505;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg);}
+}
+
+.auth-divider{
+    display:flex;
+    align-items:center;
+    margin:22px 0;
+    color:#555;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+.auth-divider:before,
+.auth-divider:after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:rgba(255,255,255,.1);
+}
+
+.auth-divider span{
+    padding:0 12px;
+}
+
+.btn-google{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.12);
+    color:#fff;
+    padding:13px;
+    border-radius:12px;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-google:hover{
+    background:rgba(255,255,255,.08);
+    border-color:rgba(212,175,55,.4);
+    box-shadow:0 8px 24px rgba(212,175,55,.1);
+    transform:translateY(-2px);
+}
+
+.auth-footer-text{
+    text-align:center;
+    margin-top:24px;
+    font-size:13px;
+    color:#888;
+}
+
+.auth-alert{
+    border-radius:12px;
+    padding:12px 16px;
+    margin-bottom:20px;
+    font-size:13px;
+    line-height:1.5;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    animation:screenIn .3s ease;
+}
+
+.auth-alert-error{
+    background:rgba(239,68,68,.12);
+    border:1px solid rgba(239,68,68,.35);
+    color:#fca5a5;
+}
+
+.auth-alert-success{
+    background:rgba(16,185,129,.12);
+    border:1px solid rgba(16,185,129,.35);
+    color:#6ee7b7;
+}
+
+/* User Navbar & Profile Badges */
+.nav-user-btn{
+    display:flex !important;
+    align-items:center !important;
+    gap:8px !important;
+    background:rgba(212,175,55,.08) !important;
+    border:1px solid rgba(212,175,55,.3) !important;
+    color:#d4af37 !important;
+    padding:8px 16px !important;
+    border-radius:20px !important;
+    font-weight:600 !important;
+    font-size:13px !important;
+    transition:.3s !important;
+}
+
+.nav-user-btn:hover{
+    background:rgba(212,175,55,.15) !important;
+    box-shadow:0 0 16px rgba(212,175,55,.2) !important;
+}
+
+.user-status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#10b981;
+    box-shadow:0 0 8px #10b981;
+    display:inline-block;
+}
+
+.nav-logout-btn{
+    background:rgba(255,255,255,.05) !important;
+    border:1px solid rgba(255,255,255,.14) !important;
+    color:#bbb !important;
+    padding:8px 14px !important;
+    border-radius:20px !important;
+    font-size:13px !important;
+    cursor:pointer !important;
+    transition:.3s !important;
+}
+
+.nav-logout-btn:hover{
+    background:rgba(239,68,68,.12) !important;
+    border-color:rgba(239,68,68,.35) !important;
+    color:#fca5a5 !important;
+}
+
+.user-profile-badge{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;
+    padding:8px 14px;
+}
+
+.user-avatar-circle{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#d4af37,#997a15);
+    color:#050505;
+    font-weight:800;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 12px rgba(212,175,55,.3);
+    user-select:none;
+}
+
+.user-profile-meta{
+    display:flex;
+    flex-direction:column;
+    text-align:left;
+}
+
+.user-profile-meta strong{
+    font-size:13px;
+    color:#f5f5f5;
+}
+
+.user-profile-meta span{
+    font-size:11px;
+    color:#888;
+}
 </style>
 </head>
 
@@ -917,9 +1308,23 @@ footer strong{
         <button onclick="showScreen('aptitude')">Aptitude</button>
         <button onclick="showScreen('interview')">Interview</button>
         <button onclick="showScreen('dashboard')">Dashboard</button>
-        <button class="nav-cta" onclick="showScreen('english')">
-            Start Preparing →
-        </button>
+        
+        <!-- Logged Out Actions -->
+        <span id="navAuthLoggedOut" style="display:flex;gap:8px;align-items:center;">
+            <button onclick="showScreen('login')">Log In</button>
+            <button class="nav-cta" onclick="showScreen('signup')">Sign Up</button>
+        </span>
+
+        <!-- Logged In Actions -->
+        <span id="navAuthLoggedIn" style="display:none;gap:8px;align-items:center;">
+            <button class="nav-user-btn" onclick="showScreen('dashboard')" title="Go to Dashboard">
+                <span class="user-status-dot"></span>
+                <span id="navUserDisplayName">User</span>
+            </button>
+            <button class="nav-logout-btn" onclick="logoutUser()" title="Sign Out">
+                Logout
+            </button>
+        </span>
     </div>
 
     <div class="mobile-menu" onclick="toggleMenu()">☰</div>
@@ -3095,9 +3500,21 @@ footer strong{
             </p>
         </div>
 
-        <button class="back-btn" onclick="showScreen('home')">
-            ← Home
-        </button>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <div class="user-profile-badge" id="dashboardUserProfile">
+                <div class="user-avatar-circle" id="dashboardAvatarInitial">U</div>
+                <div class="user-profile-meta">
+                    <strong id="dashboardUserName">User Name</strong>
+                    <span id="dashboardUserEmail">user@example.com</span>
+                </div>
+            </div>
+            <button class="nav-logout-btn" onclick="logoutUser()" title="Sign Out">
+                Sign Out
+            </button>
+            <button class="back-btn" onclick="showScreen('home')">
+                ← Home
+            </button>
+        </div>
 
     </div>
 
@@ -3237,6 +3654,250 @@ footer strong{
 
 </section>
 
+<!-- =========================================================
+     LOGIN SCREEN
+========================================================= -->
+
+<section id="login" class="screen">
+    <div class="auth-wrapper">
+        <button class="back-btn" style="margin-bottom:24px;" onclick="showScreen('home')">
+            ← Back to Home
+        </button>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo" style="margin-bottom:12px;" onclick="showScreen('home')">
+                    CareerSense <span>AI</span>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Sign in to access your personalized career dashboard & progress</p>
+            </div>
+
+            <div id="loginAlert" class="auth-alert" style="display:none;"></div>
+
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)" novalidate>
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <input type="email" id="loginEmail" class="input-with-icon" placeholder="name@example.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="loginPassword" class="input-with-icon input-with-toggle" placeholder="Enter your password" required autocomplete="current-password">
+                        <button type="button" class="pwd-toggle-btn" onclick="togglePasswordVisibility('loginPassword', this)" title="Show/Hide Password" aria-label="Toggle password visibility">
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="eye-closed" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="auth-row-between">
+                    <label class="auth-checkbox-label">
+                        <input type="checkbox" id="loginRemember" checked>
+                        <span>Remember me</span>
+                    </label>
+                    <a href="javascript:void(0)" class="auth-link" onclick="showScreen('forgotPassword')">Forgot Password?</a>
+                </div>
+
+                <button type="submit" id="loginSubmitBtn" class="btn btn-gold btn-auth-submit">
+                    <span class="btn-text">Sign In →</span>
+                    <span class="btn-spinner" style="display:none;"><span class="spinner"></span> Authenticating...</span>
+                </button>
+            </form>
+
+            <div class="auth-divider"><span>or continue with</span></div>
+
+            <button type="button" class="btn-google" onclick="handleGoogleAuth()">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.6 14.8c-.3-.8-.4-1.8-.4-2.8s.2-1.9.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
+                Continue with Google
+            </button>
+
+            <div class="auth-footer-text">
+                Don't have an account? <a href="javascript:void(0)" class="auth-link" onclick="showScreen('signup')">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     SIGNUP SCREEN
+========================================================= -->
+
+<section id="signup" class="screen">
+    <div class="auth-wrapper">
+        <button class="back-btn" style="margin-bottom:24px;" onclick="showScreen('home')">
+            ← Back to Home
+        </button>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo" style="margin-bottom:12px;" onclick="showScreen('home')">
+                    CareerSense <span>AI</span>
+                </div>
+                <h2>Create Account</h2>
+                <p>Start your AI-powered career preparation journey today</p>
+            </div>
+
+            <div id="signupAlert" class="auth-alert" style="display:none;"></div>
+
+            <form id="signupForm" onsubmit="handleSignupSubmit(event)" novalidate>
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <input type="text" id="signupName" class="input-with-icon" placeholder="e.g. Alex Johnson" required autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <input type="email" id="signupEmail" class="input-with-icon" placeholder="name@example.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="signupPassword" class="input-with-icon input-with-toggle" placeholder="At least 6 characters" required oninput="evaluatePasswordStrength(this.value)">
+                        <button type="button" class="pwd-toggle-btn" onclick="togglePasswordVisibility('signupPassword', this)" title="Show/Hide Password" aria-label="Toggle password visibility">
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="eye-closed" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                        </button>
+                    </div>
+                    <!-- Password Strength Bar -->
+                    <div class="password-strength-wrap">
+                        <div class="strength-track">
+                            <div id="strengthBar" class="strength-bar"></div>
+                        </div>
+                        <div class="strength-meta">
+                            <span>Password strength:</span>
+                            <span id="strengthText" style="color:#888;">Enter password</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 22 4-4H8l4 4z"/><path d="M12 2v10"/><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/></svg>
+                        <input type="password" id="signupConfirmPassword" class="input-with-icon input-with-toggle" placeholder="Re-enter password" required oninput="validatePasswordMatch()">
+                        <button type="button" class="pwd-toggle-btn" onclick="togglePasswordVisibility('signupConfirmPassword', this)" title="Show/Hide Password" aria-label="Toggle password visibility">
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="eye-closed" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                        </button>
+                    </div>
+                    <div id="matchFeedback" style="font-size:11px;margin-top:5px;display:none;"></div>
+                </div>
+
+                <div class="auth-row-between" style="margin-top:10px;">
+                    <label class="auth-checkbox-label">
+                        <input type="checkbox" id="signupTerms" required>
+                        <span>I agree to the <a href="javascript:void(0)" class="auth-link">Terms of Service</a> & <a href="javascript:void(0)" class="auth-link">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" id="signupSubmitBtn" class="btn btn-gold btn-auth-submit">
+                    <span class="btn-text">Create Account →</span>
+                    <span class="btn-spinner" style="display:none;"><span class="spinner"></span> Creating Account...</span>
+                </button>
+            </form>
+
+            <div class="auth-divider"><span>or register with</span></div>
+
+            <button type="button" class="btn-google" onclick="handleGoogleAuth()">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.6 14.8c-.3-.8-.4-1.8-.4-2.8s.2-1.9.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
+                Sign Up with Google
+            </button>
+
+            <div class="auth-footer-text">
+                Already have an account? <a href="javascript:void(0)" class="auth-link" onclick="showScreen('login')">Sign In</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     FORGOT PASSWORD SCREEN
+========================================================= -->
+
+<section id="forgotPassword" class="screen">
+    <div class="auth-wrapper">
+        <button class="back-btn" style="margin-bottom:24px;" onclick="showScreen('login')">
+            ← Back to Login
+        </button>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo" style="margin-bottom:12px;" onclick="showScreen('home')">
+                    CareerSense <span>AI</span>
+                </div>
+                <h2>Reset Password</h2>
+                <p>Enter your registered email and we'll help you reset your password</p>
+            </div>
+
+            <div id="forgotAlert" class="auth-alert" style="display:none;"></div>
+
+            <!-- Step 1: Request Reset Token -->
+            <form id="forgotForm" onsubmit="handleForgotSubmit(event)" novalidate>
+                <div class="form-group">
+                    <label for="forgotEmail">Email Address</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <input type="email" id="forgotEmail" class="input-with-icon" placeholder="name@example.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <button type="submit" id="forgotSubmitBtn" class="btn btn-gold btn-auth-submit">
+                    <span class="btn-text">Send Reset Link →</span>
+                    <span class="btn-spinner" style="display:none;"><span class="spinner"></span> Generating Instructions...</span>
+                </button>
+            </form>
+
+            <!-- Step 2: Update Password Form -->
+            <form id="resetForm" style="display:none;margin-top:24px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;" onsubmit="handleResetSubmit(event)" novalidate>
+                <div class="eyebrow" style="margin-bottom:12px;">Step 2: Enter New Password</div>
+                
+                <div class="form-group">
+                    <label for="resetTokenInput">Reset Token / Code</label>
+                    <div class="input-wrap">
+                        <input type="text" id="resetTokenInput" placeholder="Paste reset token here" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="resetNewPassword">New Password</label>
+                    <div class="input-wrap">
+                        <input type="password" id="resetNewPassword" placeholder="Minimum 6 characters" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="resetConfirmPassword">Confirm New Password</label>
+                    <div class="input-wrap">
+                        <input type="password" id="resetConfirmPassword" placeholder="Confirm new password" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="resetSubmitBtn" class="btn btn-gold btn-auth-submit">
+                    <span class="btn-text">Update Password →</span>
+                    <span class="btn-spinner" style="display:none;"><span class="spinner"></span> Updating Password...</span>
+                </button>
+            </form>
+
+            <div class="auth-footer-text" style="margin-top:24px;">
+                Remembered your password? <a href="javascript:void(0)" class="auth-link" onclick="showScreen('login')">Back to Login</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 </div>
 
@@ -3291,6 +3952,14 @@ for(let i = 0; i < 100; i++){
 
 function showScreen(screenId){
 
+    // Protected Route Guard for Dashboard
+    if(screenId === "dashboard" && !currentUser){
+        authRedirectTarget = "dashboard";
+        toast("Please log in to access your Career Dashboard");
+        showScreen("login");
+        return;
+    }
+
     document.querySelectorAll(".screen").forEach(screen=>{
         screen.classList.remove("active");
     });
@@ -3305,7 +3974,12 @@ function showScreen(screenId){
         });
     }
 
-    document.getElementById("navLinks").classList.remove("show");
+    const navLinks = document.getElementById("navLinks");
+    if(navLinks) navLinks.classList.remove("show");
+
+    if(["login", "signup", "forgotPassword"].includes(screenId)){
+        clearAuthAlerts();
+    }
 }
 
 
@@ -4163,7 +4837,7 @@ async function checkAptitudeAnswer(){
                     "Content-Type":"application/json"
                 },
                 body:JSON.stringify({
-                    userId:null,
+                    userId:(currentUser ? currentUser.id : null),
                     topic:currentTopic,
                     level:currentLevel,
                     question:currentQuestion.q,
@@ -4813,6 +5487,522 @@ document.addEventListener("keydown",function(event){
 
 });
 
+
+/* =========================================================
+   AUTHENTICATION SYSTEM (CLIENT ENGINE)
+========================================================= */
+
+const API_BASE = window.location.origin.includes(":5000") ? "" : "http://localhost:5000";
+
+let currentUser = null;
+let authToken = null;
+let authRedirectTarget = null;
+
+// ---------- Helper: Auth Alerts ----------
+function setAuthAlert(alertId, message, type = "error"){
+    const el = document.getElementById(alertId);
+    if(!el) return;
+    el.textContent = message;
+    el.className = "auth-alert " + (type === "success" ? "auth-alert-success" : "auth-alert-error");
+    el.style.display = "flex";
+}
+
+function clearAuthAlerts(){
+    ["loginAlert", "signupAlert", "forgotAlert"].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el){
+            el.style.display = "none";
+            el.textContent = "";
+        }
+    });
+}
+
+// ---------- Helper: Button Loading ----------
+function setButtonLoading(btnId, isLoading, defaultText, loadingText){
+    const btn = document.getElementById(btnId);
+    if(!btn) return;
+    btn.disabled = isLoading;
+    const textSpan = btn.querySelector(".btn-text");
+    const spinnerSpan = btn.querySelector(".btn-spinner");
+    if(textSpan) textSpan.style.display = isLoading ? "none" : "inline-block";
+    if(spinnerSpan) spinnerSpan.style.display = isLoading ? "inline-flex" : "none";
+}
+
+// ---------- Password Visibility Toggle ----------
+function togglePasswordVisibility(inputId, btn){
+    const input = document.getElementById(inputId);
+    if(!input) return;
+    const isPassword = input.type === "password";
+    input.type = isPassword ? "text" : "password";
+    const eyeOpen = btn.querySelector(".eye-open");
+    const eyeClosed = btn.querySelector(".eye-closed");
+    if(eyeOpen && eyeClosed){
+        eyeOpen.style.display = isPassword ? "none" : "block";
+        eyeClosed.style.display = isPassword ? "block" : "none";
+    }
+}
+
+// ---------- Password Strength Meter ----------
+function evaluatePasswordStrength(password){
+    const bar = document.getElementById("strengthBar");
+    const label = document.getElementById("strengthText");
+    if(!bar || !label) return 0;
+
+    if(!password){
+        bar.style.width = "0%";
+        bar.style.backgroundColor = "transparent";
+        label.textContent = "Enter password";
+        label.style.color = "#888";
+        return 0;
+    }
+
+    let score = 0;
+    if(password.length >= 6) score += 1;
+    if(password.length >= 10) score += 1;
+    if(/[A-Z]/.test(password) && /[a-z]/.test(password)) score += 1;
+    if(/[0-9]/.test(password)) score += 1;
+    if(/[^A-Za-z0-9]/.test(password)) score += 1;
+
+    if(score <= 1){
+        bar.style.width = "25%";
+        bar.style.backgroundColor = "#ef4444";
+        label.textContent = "Weak (use 6+ chars, add numbers)";
+        label.style.color = "#ef4444";
+    }else if(score === 2){
+        bar.style.width = "50%";
+        bar.style.backgroundColor = "#eab308";
+        label.textContent = "Fair (mix letters, numbers, symbols)";
+        label.style.color = "#eab308";
+    }else if(score === 3 || score === 4){
+        bar.style.width = "75%";
+        bar.style.backgroundColor = "#d4af37";
+        label.textContent = "Good password";
+        label.style.color = "#d4af37";
+    }else{
+        bar.style.width = "100%";
+        bar.style.backgroundColor = "#10b981";
+        label.textContent = "Strong password 🛡️";
+        label.style.color = "#10b981";
+    }
+
+    return score;
+}
+
+// ---------- Confirm Password Live Match ----------
+function validatePasswordMatch(){
+    const pwdInput = document.getElementById("signupPassword");
+    const confirmInput = document.getElementById("signupConfirmPassword");
+    const feedback = document.getElementById("matchFeedback");
+    if(!feedback || !confirmInput) return;
+
+    const pwd = pwdInput ? pwdInput.value : "";
+    const confirm = confirmInput.value;
+
+    if(!confirm){
+        feedback.style.display = "none";
+        return;
+    }
+
+    feedback.style.display = "block";
+    if(pwd === confirm){
+        feedback.textContent = "✓ Passwords match";
+        feedback.style.color = "#10b981";
+    }else{
+        feedback.textContent = "✗ Passwords do not match";
+        feedback.style.color = "#ef4444";
+    }
+}
+
+// ---------- Save Session Helper ----------
+function saveAuthSession(user, token, rememberMe = true){
+    currentUser = user;
+    authToken = token;
+
+    const storage = rememberMe ? localStorage : sessionStorage;
+    storage.setItem("careerSenseToken", token);
+    storage.setItem("careerSenseUser", JSON.stringify(user));
+
+    const altStorage = rememberMe ? sessionStorage : localStorage;
+    altStorage.removeItem("careerSenseToken");
+    altStorage.removeItem("careerSenseUser");
+
+    updateAuthUI();
+}
+
+// ---------- Logout ----------
+function logoutUser(){
+    currentUser = null;
+    authToken = null;
+    authRedirectTarget = null;
+
+    localStorage.removeItem("careerSenseToken");
+    localStorage.removeItem("careerSenseUser");
+    sessionStorage.removeItem("careerSenseToken");
+    sessionStorage.removeItem("careerSenseUser");
+
+    updateAuthUI();
+    toast("You have been signed out successfully.");
+    showScreen("home");
+}
+
+// ---------- Update Navbar and Dashboard UI ----------
+function updateAuthUI(){
+    const loggedOutSpan = document.getElementById("navAuthLoggedOut");
+    const loggedInSpan = document.getElementById("navAuthLoggedIn");
+    const navDisplayName = document.getElementById("navUserDisplayName");
+    const dashName = document.getElementById("dashboardUserName");
+    const dashEmail = document.getElementById("dashboardUserEmail");
+    const dashInitial = document.getElementById("dashboardAvatarInitial");
+
+    if(currentUser){
+        if(loggedOutSpan) loggedOutSpan.style.display = "none";
+        if(loggedInSpan) loggedInSpan.style.display = "flex";
+
+        const firstName = (currentUser.name || "User").split(" ")[0];
+        if(navDisplayName) navDisplayName.textContent = firstName;
+
+        if(dashName) dashName.textContent = currentUser.name || "Member";
+        if(dashEmail) dashEmail.textContent = currentUser.email || "";
+        if(dashInitial) dashInitial.textContent = (currentUser.name || "U")[0].toUpperCase();
+
+        loadDashboardUserStats();
+    }else{
+        if(loggedOutSpan) loggedOutSpan.style.display = "flex";
+        if(loggedInSpan) loggedInSpan.style.display = "none";
+
+        if(dashName) dashName.textContent = "Guest User";
+        if(dashEmail) dashEmail.textContent = "Please sign in to view your dashboard";
+        if(dashInitial) dashInitial.textContent = "G";
+    }
+}
+
+// ---------- Load Dashboard Stats for Current User ----------
+async function loadDashboardUserStats(){
+    if(!currentUser || !currentUser.id) return;
+
+    try{
+        const response = await fetch(`${API_BASE}/api/dashboard/${currentUser.id}`);
+        if(!response.ok) return;
+
+        const data = await response.json();
+        if(data.success){
+            const aptScore = data.aptitude && data.aptitude.total > 0
+                ? Math.round(((data.aptitude.correct || 0) / data.aptitude.total) * 100)
+                : 76;
+
+            const dashScoreEl = document.getElementById("dashboardScore");
+            if(dashScoreEl && data.aptitude && data.aptitude.total > 0){
+                dashScoreEl.textContent = Math.min(Math.max(aptScore, 65), 98);
+            }
+        }
+    }catch(err){
+        console.warn("Dashboard sync error:", err);
+    }
+}
+
+// ---------- LOGIN SUBMISSION ----------
+async function handleLoginSubmit(event){
+    event.preventDefault();
+    clearAuthAlerts();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const rememberMe = document.getElementById("loginRemember").checked;
+
+    if(!email || !password){
+        setAuthAlert("loginAlert", "Please enter both your email address and password.", "error");
+        return;
+    }
+
+    setButtonLoading("loginSubmitBtn", true, "Sign In →", "Authenticating...");
+
+    try{
+        const response = await fetch(`${API_BASE}/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password,
+                rememberMe
+            })
+        });
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success){
+            setButtonLoading("loginSubmitBtn", false, "Sign In →", "Authenticating...");
+            setAuthAlert("loginAlert", data.message || "Invalid credentials. Please try again.", "error");
+            return;
+        }
+
+        saveAuthSession(data.user, data.token, rememberMe);
+        setButtonLoading("loginSubmitBtn", false, "Sign In →", "Authenticating...");
+
+        toast(`Welcome back, ${data.user.name}!`);
+
+        const destination = authRedirectTarget || "dashboard";
+        authRedirectTarget = null;
+        showScreen(destination);
+
+    }catch(error){
+        console.error("Login fetch error:", error);
+        setButtonLoading("loginSubmitBtn", false, "Sign In →", "Authenticating...");
+        setAuthAlert("loginAlert", "Unable to connect to authentication server. Please check backend.", "error");
+    }
+}
+
+// ---------- SIGNUP SUBMISSION ----------
+async function handleSignupSubmit(event){
+    event.preventDefault();
+    clearAuthAlerts();
+
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("signupConfirmPassword").value;
+    const terms = document.getElementById("signupTerms").checked;
+
+    if(!name){
+        setAuthAlert("signupAlert", "Please enter your full name.", "error");
+        return;
+    }
+
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        setAuthAlert("signupAlert", "Please provide a valid email address.", "error");
+        return;
+    }
+
+    if(!password || password.length < 6){
+        setAuthAlert("signupAlert", "Password must be at least 6 characters long.", "error");
+        return;
+    }
+
+    if(password !== confirmPassword){
+        setAuthAlert("signupAlert", "Passwords do not match. Please re-enter.", "error");
+        return;
+    }
+
+    if(!terms){
+        setAuthAlert("signupAlert", "You must agree to the Terms of Service and Privacy Policy.", "error");
+        return;
+    }
+
+    setButtonLoading("signupSubmitBtn", true, "Create Account →", "Creating Account...");
+
+    try{
+        const response = await fetch(`${API_BASE}/api/auth/signup`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password,
+                confirmPassword
+            })
+        });
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success){
+            setButtonLoading("signupSubmitBtn", false, "Create Account →", "Creating Account...");
+            setAuthAlert("signupAlert", data.message || "Failed to create account.", "error");
+            return;
+        }
+
+        saveAuthSession(data.user, data.token, true);
+        setButtonLoading("signupSubmitBtn", false, "Create Account →", "Creating Account...");
+
+        toast(`Account created! Welcome to CareerSense AI, ${data.user.name}!`);
+
+        const destination = authRedirectTarget || "dashboard";
+        authRedirectTarget = null;
+        showScreen(destination);
+
+    }catch(error){
+        console.error("Signup fetch error:", error);
+        setButtonLoading("signupSubmitBtn", false, "Create Account →", "Creating Account...");
+        setAuthAlert("signupAlert", "Unable to connect to authentication server. Please check backend connection.", "error");
+    }
+}
+
+// ---------- FORGOT PASSWORD SUBMISSION ----------
+async function handleForgotSubmit(event){
+    event.preventDefault();
+    clearAuthAlerts();
+
+    const email = document.getElementById("forgotEmail").value.trim();
+
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        setAuthAlert("forgotAlert", "Please enter a valid email address.", "error");
+        return;
+    }
+
+    setButtonLoading("forgotSubmitBtn", true, "Send Reset Link →", "Generating Instructions...");
+
+    try{
+        const response = await fetch(`${API_BASE}/api/auth/forgot-password`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+        setButtonLoading("forgotSubmitBtn", false, "Send Reset Link →", "Generating Instructions...");
+
+        if(data.success){
+            setAuthAlert("forgotAlert", data.message || "Password recovery instructions generated.", "success");
+
+            if(data.resetToken){
+                const resetForm = document.getElementById("resetForm");
+                const resetTokenInput = document.getElementById("resetTokenInput");
+                if(resetForm && resetTokenInput){
+                    resetTokenInput.value = data.resetToken;
+                    resetForm.style.display = "block";
+                    resetForm.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        }else{
+            setAuthAlert("forgotAlert", data.message || "Could not process request.", "error");
+        }
+    }catch(error){
+        console.error("Forgot password error:", error);
+        setButtonLoading("forgotSubmitBtn", false, "Send Reset Link →", "Generating Instructions...");
+        setAuthAlert("forgotAlert", "Connection error. Please ensure backend is running.", "error");
+    }
+}
+
+// ---------- RESET PASSWORD SUBMISSION ----------
+async function handleResetSubmit(event){
+    event.preventDefault();
+    clearAuthAlerts();
+
+    const token = document.getElementById("resetTokenInput").value.trim();
+    const newPassword = document.getElementById("resetNewPassword").value;
+    const confirmPassword = document.getElementById("resetConfirmPassword").value;
+
+    if(!token){
+        setAuthAlert("forgotAlert", "Reset token is required.", "error");
+        return;
+    }
+
+    if(!newPassword || newPassword.length < 6){
+        setAuthAlert("forgotAlert", "New password must be at least 6 characters long.", "error");
+        return;
+    }
+
+    if(newPassword !== confirmPassword){
+        setAuthAlert("forgotAlert", "Passwords do not match.", "error");
+        return;
+    }
+
+    setButtonLoading("resetSubmitBtn", true, "Update Password →", "Updating Password...");
+
+    try{
+        const response = await fetch(`${API_BASE}/api/auth/reset-password`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                token,
+                newPassword,
+                confirmPassword
+            })
+        });
+
+        const data = await response.json();
+        setButtonLoading("resetSubmitBtn", false, "Update Password →", "Updating Password...");
+
+        if(!response.ok || !data.success){
+            setAuthAlert("forgotAlert", data.message || "Failed to reset password.", "error");
+            return;
+        }
+
+        toast("Password updated successfully! Please log in.");
+        showScreen("login");
+        setAuthAlert("loginAlert", "Password updated successfully. Please log in with your new password.", "success");
+
+    }catch(error){
+        console.error("Reset password error:", error);
+        setButtonLoading("resetSubmitBtn", false, "Update Password →", "Updating Password...");
+        setAuthAlert("forgotAlert", "Connection error. Please try again.", "error");
+    }
+}
+
+// ---------- GOOGLE AUTH (UI / DEMO HANDLER) ----------
+async function handleGoogleAuth(){
+    try{
+        toast("Authenticating with Google...");
+        const response = await fetch(`${API_BASE}/api/auth/google`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: "Alex Johnson",
+                email: "alex.career@gmail.com"
+            })
+        });
+
+        const data = await response.json();
+
+        if(data.success && data.token){
+            saveAuthSession(data.user, data.token, true);
+            toast(`Welcome, ${data.user.name}! (Signed in with Google)`);
+            const target = authRedirectTarget || "dashboard";
+            authRedirectTarget = null;
+            showScreen(target);
+        }else{
+            toast(data.message || "Google authentication failed.");
+        }
+    }catch(error){
+        console.error("Google auth error:", error);
+        toast("Unable to connect to Google authentication service.");
+    }
+}
+
+// ---------- INITIALIZE AUTH ON STARTUP ----------
+async function initAuth(){
+    const storedToken = localStorage.getItem("careerSenseToken") || sessionStorage.getItem("careerSenseToken");
+    const storedUser = localStorage.getItem("careerSenseUser") || sessionStorage.getItem("careerSenseUser");
+
+    if(storedToken && storedUser){
+        try{
+            authToken = storedToken;
+            currentUser = JSON.parse(storedUser);
+            updateAuthUI();
+
+            const response = await fetch(`${API_BASE}/api/auth/me`, {
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
+
+            if(response.ok){
+                const data = await response.json();
+                if(data.success && data.user){
+                    currentUser = data.user;
+                    updateAuthUI();
+                }
+            }else if(response.status === 401){
+                logoutUser();
+            }
+        }catch(err){
+            console.warn("Session check error:", err);
+            updateAuthUI();
+        }
+    }else{
+        updateAuthUI();
+    }
+}
+
+initAuth();
 
 /* =========================================================
    INITIALIZATION

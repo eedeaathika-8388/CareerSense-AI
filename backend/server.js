@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const Database = require("better-sqlite3");
 const dotenv = require("dotenv");
+const path = require("path");
+const createAuthRoutes = require("./routes/authRoutes");
 
 dotenv.config();
 
@@ -24,6 +26,19 @@ db.prepare(`
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
 `).run();
+
+try {
+    db.prepare("ALTER TABLE users ADD COLUMN reset_token TEXT").run();
+} catch (e) {
+    // Column already exists
+}
+
+try {
+    db.prepare("ALTER TABLE users ADD COLUMN reset_token_expires INTEGER").run();
+} catch (e) {
+    // Column already exists
+}
+
 
 db.prepare(`
     CREATE TABLE IF NOT EXISTS aptitude_results (
@@ -63,9 +78,19 @@ db.prepare(`
     )
 `).run();
 
+// ================= AUTHENTICATION & STATIC =================
+
+app.use("/api/auth", createAuthRoutes(db));
+
+// Serve static frontend assets
+app.use(express.static(path.join(__dirname, "..")));
+
 // ================= BASIC =================
 
 app.get("/", (req, res) => {
+    if (req.accepts("html")) {
+        return res.sendFile(path.join(__dirname, "..", "index.html.html"));
+    }
     res.json({
         success: true,
         message: "CareerSense AI Backend is Running 🚀"

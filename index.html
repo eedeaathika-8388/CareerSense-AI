@@ -1,0 +1,6018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerSense AI — Career Preparation Platform</title>
+
+<style>
+/* =========================================================
+   CAREERSENSE AI — SINGLE FILE FRONTEND
+   Premium Black / White / Silver / Gold
+   ========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:#050505;
+    color:#f5f5f5;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ---------- MOVING PARTICLES ---------- */
+
+#particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+}
+
+.particle{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#fff;
+    opacity:.35;
+    animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+    0%{
+        transform:translate3d(0,110vh,0);
+        opacity:0;
+    }
+    10%{
+        opacity:.45;
+    }
+    50%{
+        opacity:.8;
+    }
+    90%{
+        opacity:.4;
+    }
+    100%{
+        transform:translate3d(var(--drift),-15vh,0);
+        opacity:0;
+    }
+}
+
+/* ---------- BACKGROUND ---------- */
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(255,255,255,.07),transparent 25%),
+        radial-gradient(circle at 80% 30%,rgba(212,175,55,.05),transparent 25%),
+        radial-gradient(circle at 50% 80%,rgba(255,255,255,.04),transparent 30%),
+        #050505;
+}
+
+body:after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background-image:
+        linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+/* ---------- NAVBAR ---------- */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:74px;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    background:rgba(5,5,5,.78);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,255,255,.09);
+}
+
+.logo{
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:-.5px;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.logo span{
+    color:#d4af37;
+}
+
+.nav-links{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.nav-links button{
+    background:none;
+    border:0;
+    color:#aaa;
+    padding:10px 15px;
+    cursor:pointer;
+    font-size:14px;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.nav-links button:hover,
+.nav-links button.active{
+    color:#fff;
+    background:rgba(255,255,255,.07);
+}
+
+.nav-cta{
+    background:#f5f5f5 !important;
+    color:#050505 !important;
+    font-weight:700 !important;
+    border-radius:25px !important;
+    padding:11px 20px !important;
+}
+
+.mobile-menu{
+    display:none;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* ---------- APP ---------- */
+
+#app{
+    position:relative;
+    z-index:1;
+    padding-top:74px;
+}
+
+.screen{
+    display:none;
+    min-height:calc(100vh - 74px);
+    padding:70px 6%;
+    animation:screenIn .45s ease;
+}
+
+.screen.active{
+    display:block;
+}
+
+@keyframes screenIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ---------- HERO ---------- */
+
+.hero{
+    min-height:calc(100vh - 74px);
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    align-items:center;
+    gap:60px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.045);
+    padding:8px 14px;
+    border-radius:30px;
+    font-size:12px;
+    color:#ccc;
+    margin-bottom:25px;
+}
+
+.badge i{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#d4af37;
+    box-shadow:0 0 12px #d4af37;
+}
+
+.hero h1{
+    font-size:clamp(45px,6vw,82px);
+    line-height:.98;
+    letter-spacing:-4px;
+    max-width:850px;
+}
+
+.hero h1 span{
+    color:#d4af37;
+}
+
+.hero p{
+    margin-top:25px;
+    max-width:650px;
+    color:#999;
+    line-height:1.8;
+    font-size:17px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    margin-top:35px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:none;
+    cursor:pointer;
+    padding:14px 23px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:14px;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:#f5f5f5;
+    color:#050505;
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 35px rgba(255,255,255,.15);
+}
+
+.btn-secondary{
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.15);
+}
+
+.btn-secondary:hover{
+    background:rgba(255,255,255,.1);
+    transform:translateY(-3px);
+}
+
+.btn-gold{
+    background:#d4af37;
+    color:#080808;
+}
+
+.btn-gold:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 35px rgba(212,175,55,.18);
+}
+
+/* ---------- AI CARD ---------- */
+
+.ai-card{
+    position:relative;
+    border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+    backdrop-filter:blur(18px);
+    border-radius:30px;
+    padding:32px;
+    box-shadow:0 30px 100px rgba(0,0,0,.5);
+    overflow:hidden;
+}
+
+.ai-card:before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-70px;
+    top:-70px;
+    background:rgba(212,175,55,.08);
+    filter:blur(30px);
+    border-radius:50%;
+}
+
+.ai-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.ai-label{
+    color:#999;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.status{
+    font-size:11px;
+    border:1px solid rgba(212,175,55,.3);
+    color:#d4af37;
+    padding:6px 10px;
+    border-radius:20px;
+}
+
+.score-ring{
+    width:210px;
+    height:210px;
+    margin:20px auto 30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle at center,#090909 57%,transparent 58%),
+        conic-gradient(#d4af37 78%,rgba(255,255,255,.08) 0);
+    box-shadow:0 0 50px rgba(212,175,55,.08);
+}
+
+.score-number{
+    text-align:center;
+}
+
+.score-number strong{
+    display:block;
+    font-size:48px;
+}
+
+.score-number small{
+    color:#888;
+}
+
+.mini-stat{
+    display:flex;
+    justify-content:space-between;
+    padding:13px 0;
+    border-bottom:1px solid rgba(255,255,255,.07);
+    font-size:13px;
+}
+
+.mini-stat span:last-child{
+    color:#d4af37;
+}
+
+/* ---------- SECTION HEAD ---------- */
+
+.section-head{
+    text-align:center;
+    max-width:750px;
+    margin:0 auto 55px;
+}
+
+.eyebrow{
+    color:#d4af37;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.section-head h2{
+    font-size:clamp(32px,5vw,52px);
+    letter-spacing:-2px;
+}
+
+.section-head p{
+    color:#888;
+    line-height:1.7;
+    margin-top:15px;
+}
+
+/* ---------- CARDS ---------- */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.card{
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.035);
+    border-radius:20px;
+    padding:26px;
+    transition:.35s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(212,175,55,.35);
+    background:rgba(255,255,255,.055);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.card-icon{
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    margin-bottom:20px;
+    font-size:21px;
+}
+
+.card h3{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#888;
+    line-height:1.65;
+    font-size:14px;
+}
+
+.card-action{
+    margin-top:20px;
+    color:#d4af37;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* ---------- LEVEL CARDS ---------- */
+
+.level-card{
+    cursor:pointer;
+    min-height:250px;
+}
+
+.level-number{
+    color:#555;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.level-card h3{
+    font-size:29px;
+    margin-bottom:10px;
+}
+
+.level-card p{
+    min-height:70px;
+}
+
+.level-card:hover h3{
+    color:#d4af37;
+}
+
+/* ---------- PAGE HEADER ---------- */
+
+.page-header{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:30px;
+    margin-bottom:45px;
+}
+
+.page-header h1{
+    font-size:clamp(35px,5vw,58px);
+    letter-spacing:-2px;
+}
+
+.page-header p{
+    color:#888;
+    margin-top:10px;
+    max-width:650px;
+    line-height:1.6;
+}
+
+.back-btn{
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04);
+    color:#aaa;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* ---------- MODULE CARDS ---------- */
+
+.module-card{
+    cursor:pointer;
+    min-height:220px;
+}
+
+.module-card .number{
+    color:#555;
+    font-size:12px;
+    margin-bottom:24px;
+}
+
+.module-card h3{
+    font-size:21px;
+    margin-bottom:10px;
+}
+
+.module-card:hover h3{
+    color:#d4af37;
+}
+
+/* ---------- WORKSPACE ---------- */
+
+.workspace{
+    max-width:1000px;
+    margin:auto;
+}
+
+.workspace-card{
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.11);
+    border-radius:25px;
+    padding:30px;
+    margin-bottom:20px;
+}
+
+.workspace-card h3{
+    margin-bottom:18px;
+}
+
+textarea,
+input,
+select{
+    width:100%;
+    background:#0b0b0b;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:12px;
+    padding:15px;
+    outline:none;
+    font-family:inherit;
+    transition:.3s;
+}
+
+textarea{
+    min-height:150px;
+    resize:vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:rgba(212,175,55,.6);
+    box-shadow:0 0 0 3px rgba(212,175,55,.05);
+}
+
+label{
+    display:block;
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.output{
+    margin-top:20px;
+    padding:20px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:15px;
+    background:rgba(0,0,0,.3);
+    min-height:80px;
+}
+
+.output-title{
+    color:#d4af37;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.translation-result{
+    font-size:24px;
+    line-height:1.5;
+}
+
+.telugu{
+    color:#bbb;
+    margin-top:8px;
+}
+
+/* ---------- QUESTION ---------- */
+
+.question-box{
+    font-size:19px;
+    line-height:1.7;
+    padding:25px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    margin-bottom:20px;
+}
+
+.option{
+    display:block;
+    padding:15px 18px;
+    margin:10px 0;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+    cursor:pointer;
+    color:#ccc;
+    transition:.25s;
+}
+
+.option:hover{
+    border-color:#d4af37;
+    color:#fff;
+}
+
+.option.selected{
+    border-color:#d4af37;
+    background:rgba(212,175,55,.08);
+}
+
+.result-box{
+    padding:20px;
+    border-radius:15px;
+    margin-top:20px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.correct{
+    color:#ddd;
+}
+
+.wrong{
+    color:#d4af37;
+}
+
+/* ---------- METRICS ---------- */
+
+.metric-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.metric{
+    padding:22px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:16px;
+    background:rgba(255,255,255,.035);
+}
+
+.metric small{
+    color:#777;
+    display:block;
+    margin-bottom:10px;
+}
+
+.metric strong{
+    font-size:30px;
+}
+
+.progress{
+    height:7px;
+    background:#171717;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:12px;
+}
+
+.progress span{
+    display:block;
+    height:100%;
+    background:linear-gradient(90deg,#777,#d4af37);
+    border-radius:10px;
+}
+
+/* ---------- DASHBOARD ---------- */
+
+.dashboard-score{
+    text-align:center;
+    padding:50px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:25px;
+    background:rgba(255,255,255,.035);
+}
+
+.dashboard-score strong{
+    display:block;
+    font-size:72px;
+    color:#d4af37;
+}
+
+.dashboard-score span{
+    color:#888;
+}
+
+.insight{
+    padding:22px;
+    border-left:2px solid #d4af37;
+    background:rgba(255,255,255,.035);
+    margin-top:25px;
+    color:#bbb;
+    line-height:1.7;
+}
+
+/* ---------- FLOW ---------- */
+
+.flow{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.flow-item{
+    text-align:center;
+    padding:25px 15px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:17px;
+}
+
+.flow-item strong{
+    display:block;
+    font-size:17px;
+    margin:10px 0;
+}
+
+.flow-item span{
+    color:#777;
+    font-size:12px;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer{
+    padding:40px 6%;
+    border-top:1px solid rgba(255,255,255,.08);
+    text-align:center;
+    color:#666;
+    font-size:13px;
+}
+
+footer strong{
+    color:#d4af37;
+}
+
+/* ---------- TOAST ---------- */
+
+#toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    z-index:5000;
+    padding:15px 20px;
+    background:#111;
+    border:1px solid rgba(212,175,55,.35);
+    color:#fff;
+    border-radius:12px;
+    transform:translateY(100px);
+    opacity:0;
+    transition:.35s;
+}
+
+#toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:74px;
+        left:0;
+        right:0;
+        padding:15px;
+        background:#080808;
+        border-bottom:1px solid rgba(255,255,255,.1);
+        flex-direction:column;
+    }
+
+    .nav-links.show{
+        display:flex;
+    }
+
+    .nav-links button{
+        width:100%;
+        text-align:center;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+        padding-top:20px;
+    }
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .metric-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .flow{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .navbar{
+        padding:0 20px;
+    }
+
+    .screen{
+        padding:45px 20px;
+    }
+
+    .hero h1{
+        font-size:46px;
+        letter-spacing:-2px;
+    }
+
+    .grid,
+    .grid-2,
+    .form-row,
+    .metric-grid,
+    .flow{
+        grid-template-columns:1fr;
+    }
+
+    .page-header{
+        display:block;
+    }
+
+    .back-btn{
+        margin-top:20px;
+    }
+
+    .score-ring{
+        width:170px;
+        height:170px;
+    }
+}
+
+/* =========================================================
+   AUTHENTICATION STYLING (BLACK + GOLD + EMERALD)
+   ========================================================= */
+
+.auth-wrapper{
+    max-width:480px;
+    margin:0 auto;
+    width:100%;
+}
+
+.auth-card{
+    position:relative;
+    border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    backdrop-filter:blur(20px);
+    border-radius:26px;
+    padding:38px 34px;
+    box-shadow:0 30px 90px rgba(0,0,0,.6);
+    overflow:hidden;
+}
+
+.auth-card:before{
+    content:"";
+    position:absolute;
+    width:160px;
+    height:160px;
+    right:-60px;
+    top:-60px;
+    background:rgba(212,175,55,.1);
+    filter:blur(40px);
+    border-radius:50%;
+    pointer-events:none;
+}
+
+.auth-card:after{
+    content:"";
+    position:absolute;
+    width:140px;
+    height:140px;
+    left:-50px;
+    bottom:-50px;
+    background:rgba(16,185,129,.07);
+    filter:blur(40px);
+    border-radius:50%;
+    pointer-events:none;
+}
+
+.auth-header{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.auth-header h2{
+    font-size:28px;
+    letter-spacing:-.8px;
+    margin-bottom:8px;
+}
+
+.auth-header p{
+    color:#888;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.form-group{
+    margin-bottom:18px;
+    position:relative;
+}
+
+.input-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+}
+
+.input-icon{
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    width:18px;
+    height:18px;
+    color:#777;
+    pointer-events:none;
+    transition:.2s;
+}
+
+.input-with-icon{
+    padding-left:44px !important;
+}
+
+.input-with-toggle{
+    padding-right:44px !important;
+}
+
+.input-wrap:focus-within .input-icon{
+    color:#d4af37;
+}
+
+.pwd-toggle-btn{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:#777;
+    cursor:pointer;
+    padding:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:6px;
+    transition:.2s;
+}
+
+.pwd-toggle-btn svg{
+    width:18px;
+    height:18px;
+}
+
+.pwd-toggle-btn:hover{
+    color:#d4af37;
+    background:rgba(255,255,255,.06);
+}
+
+/* Password Strength Indicator */
+.password-strength-wrap{
+    margin-top:8px;
+}
+
+.strength-track{
+    width:100%;
+    height:5px;
+    background:rgba(255,255,255,.08);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.strength-bar{
+    height:100%;
+    width:0%;
+    border-radius:10px;
+    transition:width .35s ease, background-color .35s ease;
+}
+
+.strength-meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:#888;
+    margin-top:5px;
+}
+
+.auth-row-between{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:14px 0 20px;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.auth-checkbox-label{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:#aaa;
+    cursor:pointer;
+    user-select:none;
+}
+
+.auth-checkbox-label input[type="checkbox"]{
+    width:16px;
+    height:16px;
+    accent-color:#d4af37;
+    cursor:pointer;
+    margin:0;
+}
+
+.auth-link{
+    color:#d4af37;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.auth-link:hover{
+    color:#f5e297;
+    text-decoration:underline;
+}
+
+.btn-auth-submit{
+    width:100%;
+    padding:14px;
+    font-size:15px;
+    font-weight:700;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.btn-auth-submit:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none !important;
+}
+
+.spinner{
+    display:inline-block;
+    width:16px;
+    height:16px;
+    border:2px solid rgba(0,0,0,.25);
+    border-top-color:#050505;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg);}
+}
+
+.auth-divider{
+    display:flex;
+    align-items:center;
+    margin:22px 0;
+    color:#555;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+.auth-divider:before,
+.auth-divider:after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:rgba(255,255,255,.1);
+}
+
+.auth-divider span{
+    padding:0 12px;
+}
+
+.btn-google{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.12);
+    color:#fff;
+    padding:13px;
+    border-radius:12px;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-google:hover{
+    background:rgba(255,255,255,.08);
+    border-color:rgba(212,175,55,.4);
+    box-shadow:0 8px 24px rgba(212,175,55,.1);
+    transform:translateY(-2px);
+}
+
+.auth-footer-text{
+    text-align:center;
+    margin-top:24px;
+    font-size:13px;
+    color:#888;
+}
+
+.auth-alert{
+    border-radius:12px;
+    padding:12px 16px;
+    margin-bottom:20px;
+    font-size:13px;
+    line-height:1.5;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    animation:screenIn .3s ease;
+}
+
+.auth-alert-error{
+    background:rgba(239,68,68,.12);
+    border:1px solid rgba(239,68,68,.35);
+    color:#fca5a5;
+}
+
+.auth-alert-success{
+    background:rgba(16,185,129,.12);
+    border:1px solid rgba(16,185,129,.35);
+    color:#6ee7b7;
+}
+
+/* User Navbar & Profile Badges */
+.nav-user-btn{
+    display:flex !important;
+    align-items:center !important;
+    gap:8px !important;
+    background:rgba(212,175,55,.08) !important;
+    border:1px solid rgba(212,175,55,.3) !important;
+    color:#d4af37 !important;
+    padding:8px 16px !important;
+    border-radius:20px !important;
+    font-weight:600 !important;
+    font-size:13px !important;
+    transition:.3s !important;
+}
+
+.nav-user-btn:hover{
+    background:rgba(212,175,55,.15) !important;
+    box-shadow:0 0 16px rgba(212,175,55,.2) !important;
+}
+
+.user-status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#10b981;
+    box-shadow:0 0 8px #10b981;
+    display:inline-block;
+}
+
+.nav-logout-btn{
+    background:rgba(255,255,255,.05) !important;
+    border:1px solid rgba(255,255,255,.14) !important;
+    color:#bbb !important;
+    padding:8px 14px !important;
+    border-radius:20px !important;
+    font-size:13px !important;
+    cursor:pointer !important;
+    transition:.3s !important;
+}
+
+.nav-logout-btn:hover{
+    background:rgba(239,68,68,.12) !important;
+    border-color:rgba(239,68,68,.35) !important;
+    color:#fca5a5 !important;
+}
+
+.user-profile-badge{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;
+    padding:8px 14px;
+}
+
+.user-avatar-circle{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#d4af37,#997a15);
+    color:#050505;
+    font-weight:800;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 12px rgba(212,175,55,.3);
+    user-select:none;
+}
+
+.user-profile-meta{
+    display:flex;
+    flex-direction:column;
+    text-align:left;
+}
+
+.user-profile-meta strong{
+    font-size:13px;
+    color:#f5f5f5;
+}
+
+.user-profile-meta span{
+    font-size:11px;
+    color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="logo" onclick="showScreen('home')">
+        CareerSense <span>AI</span>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <button onclick="showScreen('home')">Home</button>
+        <button onclick="showScreen('english')">English</button>
+        <button onclick="showScreen('aptitude')">Aptitude</button>
+        <button onclick="showScreen('interview')">Interview</button>
+        <button onclick="showScreen('dashboard')">Dashboard</button>
+        
+        <!-- Logged Out Actions -->
+        <span id="navAuthLoggedOut" style="display:flex;gap:8px;align-items:center;">
+            <button onclick="showScreen('login')">Log In</button>
+            <button class="nav-cta" onclick="showScreen('signup')">Sign Up</button>
+        </span>
+
+        <!-- Logged In Actions -->
+        <span id="navAuthLoggedIn" style="display:none;gap:8px;align-items:center;">
+            <button class="nav-user-btn" onclick="showScreen('dashboard')" title="Go to Dashboard">
+                <span class="user-status-dot"></span>
+                <span id="navUserDisplayName">User</span>
+            </button>
+            <button class="nav-logout-btn" onclick="logoutUser()" title="Sign Out">
+                Logout
+            </button>
+        </span>
+    </div>
+
+    <div class="mobile-menu" onclick="toggleMenu()">☰</div>
+
+</nav>
+
+
+<div id="app">
+
+<!-- =========================================================
+     HOME
+========================================================= -->
+
+<section id="home" class="screen active">
+
+    <div class="hero">
+
+        <div>
+
+            <div class="badge">
+                <i></i>
+                AI-POWERED CAREER PREPARATION
+            </div>
+
+            <h1>
+                Build Skills.<br>
+                Get <span>Job Ready.</span>
+            </h1>
+
+            <p>
+                CareerSense AI helps students improve English communication,
+                aptitude skills and interview performance through personalized
+                practice, AI feedback and continuous progress tracking.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="btn btn-primary"
+                        onclick="showScreen('english')">
+                    Start Preparation →
+                </button>
+
+                <button class="btn btn-secondary"
+                        onclick="showScreen('dashboard')">
+                    Explore Dashboard
+                </button>
+
+            </div>
+
+            <div class="hero-buttons">
+
+                <div class="badge">Personalized Practice</div>
+                <div class="badge">AI Feedback</div>
+                <div class="badge">Track Progress</div>
+
+            </div>
+
+        </div>
+
+
+        <div class="ai-card">
+
+            <div class="ai-top">
+                <div class="ai-label">Career Readiness</div>
+                <div class="status">AI ACTIVE ✦</div>
+            </div>
+
+            <div class="score-ring">
+                <div class="score-number">
+                    <strong>78</strong>
+                    <small>/100</small>
+                </div>
+            </div>
+
+            <div class="mini-stat">
+                <span>English Communication</span>
+                <span>82%</span>
+            </div>
+
+            <div class="mini-stat">
+                <span>Aptitude</span>
+                <span>76%</span>
+            </div>
+
+            <div class="mini-stat">
+                <span>Interview Skills</span>
+                <span>74%</span>
+            </div>
+
+            <div class="insight">
+                <strong>AI Insight</strong><br>
+                Practice percentages and improve vocabulary variety.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-head">
+        <div class="eyebrow">One platform</div>
+        <h2>Complete Career Preparation</h2>
+        <p>
+            Learn, practice, analyze and improve — all from one platform.
+        </p>
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card" onclick="showScreen('english')">
+            <div class="card-icon">Aa</div>
+            <h3>English & Communication</h3>
+            <p>
+                Improve grammar, vocabulary, pronunciation, fluency,
+                speaking and professional communication.
+            </p>
+            <div class="card-action">Explore English →</div>
+        </div>
+
+        <div class="card" onclick="showScreen('aptitude')">
+            <div class="card-icon">∑</div>
+            <h3>Aptitude & Reasoning</h3>
+            <p>
+                Practice quantitative aptitude, logical reasoning and
+                verbal ability with adaptive questions.
+            </p>
+            <div class="card-action">Explore Aptitude →</div>
+        </div>
+
+        <div class="card" onclick="showScreen('interview')">
+            <div class="card-icon">◈</div>
+            <h3>Interview Preparation</h3>
+            <p>
+                Prepare for HR, technical and AI-powered mock interviews
+                with personalized feedback.
+            </p>
+            <div class="card-action">Explore Interview →</div>
+        </div>
+
+    </div>
+
+
+    <div class="section-head" style="margin-top:100px;">
+        <div class="eyebrow">How it works</div>
+        <h2>Learn → Practice → Analyze → Improve</h2>
+    </div>
+
+    <div class="flow">
+
+        <div class="flow-item">
+            <span>01</span>
+            <strong>Learn</strong>
+            <span>Build fundamental skills</span>
+        </div>
+
+        <div class="flow-item">
+            <span>02</span>
+            <strong>Practice</strong>
+            <span>Apply what you learn</span>
+        </div>
+
+        <div class="flow-item">
+            <span>03</span>
+            <strong>Analyze</strong>
+            <span>Understand your mistakes</span>
+        </div>
+
+        <div class="flow-item">
+            <span>04</span>
+            <strong>Improve</strong>
+            <span>Practice your weak areas</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ENGLISH MAIN
+========================================================= -->
+
+<section id="english" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">English & Communication</div>
+            <h1>Choose Your Level</h1>
+            <p>
+                Start at your current level and build communication skills
+                step by step.
+            </p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('home')">
+            ← Home
+        </button>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card level-card"
+             onclick="showScreen('englishBeginner')">
+
+            <div class="level-number">LEVEL 01</div>
+
+            <h3>Beginner</h3>
+
+            <p>
+                Build basic English using Telugu support, vocabulary,
+                sentence formation and daily conversations.
+            </p>
+
+            <div class="card-action">
+                Start Beginner →
+            </div>
+
+        </div>
+
+
+        <div class="card level-card"
+             onclick="showScreen('englishIntermediate')">
+
+            <div class="level-number">LEVEL 02</div>
+
+            <h3>Intermediate</h3>
+
+            <p>
+                Improve grammar, speaking, sentence correction and
+                interview communication.
+            </p>
+
+            <div class="card-action">
+                Start Intermediate →
+            </div>
+
+        </div>
+
+
+        <div class="card level-card"
+             onclick="showScreen('englishExpert')">
+
+            <div class="level-number">LEVEL 03</div>
+
+            <h3>Expert</h3>
+
+            <p>
+                Analyze fluency, vocabulary, pronunciation, pauses,
+                filler words and professional communication.
+            </p>
+
+            <div class="card-action">
+                Start Expert →
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ENGLISH BEGINNER
+========================================================= -->
+
+<section id="englishBeginner" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">English / Beginner</div>
+            <h1>Build Your Foundation</h1>
+            <p>
+                Start speaking English confidently with simple,
+                practical learning modules.
+            </p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('english')">
+            ← English
+        </button>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card module-card"
+             onclick="showScreen('translator')">
+            <div class="number">01</div>
+            <h3>Telugu ↔ English Translator</h3>
+            <p>
+                Translate simple Telugu sentences into English and
+                understand English sentences in Telugu.
+            </p>
+            <div class="card-action">Open Translator →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('beginnerVocabulary')">
+            <div class="number">02</div>
+            <h3>Basic Vocabulary</h3>
+            <p>Learn useful everyday English words.</p>
+            <div class="card-action">Open Module →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('sentenceFormation')">
+            <div class="number">03</div>
+            <h3>Sentence Formation</h3>
+            <p>Learn how to create simple English sentences.</p>
+            <div class="card-action">Open Module →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('pronunciation')">
+            <div class="number">04</div>
+            <h3>Pronunciation</h3>
+            <p>Practice pronunciation of common English words.</p>
+            <div class="card-action">Open Module →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('dailyConversation')">
+            <div class="number">05</div>
+            <h3>Daily Conversations</h3>
+            <p>Practice simple conversations used in real life.</p>
+            <div class="card-action">Open Module →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('dailyPractice')">
+            <div class="number">06</div>
+            <h3>Daily English Practice</h3>
+            <p>Complete a small English challenge every day.</p>
+            <div class="card-action">Open Module →</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TRANSLATOR
+========================================================= -->
+
+<section id="translator" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">Beginner / Translation</div>
+            <h1>Telugu ↔ English</h1>
+            <p>
+                Enter a sentence and get a translation.
+                Powered by the CareerSense AI backend for real-time AI translation.
+            </p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishBeginner')">
+            ← Beginner
+        </button>
+
+    </div>
+
+
+    <div class="workspace">
+
+        <div class="workspace-card">
+
+            <div class="form-row">
+
+                <div>
+                    <label>Translation Direction</label>
+
+                    <select id="translationDirection">
+                        <option value="te-en">Telugu → English</option>
+                        <option value="en-te">English → Telugu</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Example</label>
+
+                    <select id="translationExample"
+                            onchange="loadTranslationExample()">
+                        <option value="">Choose example</option>
+                        <option value="hungry">I am hungry</option>
+                        <option value="college">I am going to college</option>
+                        <option value="name">What is your name?</option>
+                        <option value="study">I am studying B.Tech</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <label>Enter sentence</label>
+
+            <textarea id="translationInput"
+                      placeholder="Type Telugu or English sentence here..."></textarea>
+
+            <div style="margin-top:15px;">
+                <button class="btn btn-gold"
+                        onclick="translateText()">
+                    Translate →
+                </button>
+            </div>
+
+
+            <div class="output">
+
+                <div class="output-title">
+                    Translation
+                </div>
+
+                <div id="translationOutput"
+                     class="translation-result">
+                    Your translation will appear here.
+                </div>
+
+                <div id="translationTelugu"
+                     class="telugu">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="workspace-card">
+
+            <h3>Example</h3>
+
+            <p style="color:#aaa;line-height:1.8;">
+                Telugu: నాకు ఆకలిగా ఉంది.<br>
+                English: I am hungry.
+            </p>
+
+            <br>
+
+            <button class="btn btn-secondary"
+                    onclick="speakTranslation()">
+                🔊 Listen
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BEGINNER VOCABULARY
+========================================================= -->
+
+<section id="beginnerVocabulary" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">Beginner / Vocabulary</div>
+            <h1>Basic Vocabulary</h1>
+            <p>Learn useful words for everyday communication.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishBeginner')">
+            ← Beginner
+        </button>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Hungry</h3>
+            <p>Meaning: Feeling that you need food.</p>
+            <div class="card-action">నాకు ఆకలిగా ఉంది</div>
+        </div>
+
+        <div class="card">
+            <h3>Happy</h3>
+            <p>Meaning: Feeling good or joyful.</p>
+            <div class="card-action">సంతోషంగా</div>
+        </div>
+
+        <div class="card">
+            <h3>Important</h3>
+            <p>Meaning: Something that matters.</p>
+            <div class="card-action">ముఖ్యమైన</div>
+        </div>
+
+        <div class="card">
+            <h3>Improve</h3>
+            <p>Meaning: To become better.</p>
+            <div class="card-action">మెరుగుపరచడం</div>
+        </div>
+
+        <div class="card">
+            <h3>Practice</h3>
+            <p>Meaning: Repeated training to improve a skill.</p>
+            <div class="card-action">అభ్యాసం</div>
+        </div>
+
+        <div class="card">
+            <h3>Confident</h3>
+            <p>Meaning: Believing in your ability.</p>
+            <div class="card-action">ఆత్మవిశ్వాసంతో</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SENTENCE FORMATION
+========================================================= -->
+
+<section id="sentenceFormation" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Beginner / Grammar</div>
+            <h1>Sentence Formation</h1>
+            <p>Learn the basic structure of English sentences.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishBeginner')">
+            ← Beginner
+        </button>
+    </div>
+
+
+    <div class="grid-2">
+
+        <div class="card">
+            <h3>Basic Structure</h3>
+            <p>
+                Subject + Verb + Object
+            </p>
+
+            <div class="output">
+                <strong>I eat rice.</strong><br><br>
+                I = Subject<br>
+                eat = Verb<br>
+                rice = Object
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Daily Examples</h3>
+            <p>
+                I go to college.<br>
+                I study every day.<br>
+                She likes music.<br>
+                We play cricket.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRONUNCIATION
+========================================================= -->
+
+<section id="pronunciation" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Beginner / Speaking</div>
+            <h1>Pronunciation Practice</h1>
+            <p>Listen and repeat common English words.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishBeginner')">
+            ← Beginner
+        </button>
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Career</h3>
+            <p>Pronunciation: kuh-REER</p>
+            <button class="btn btn-secondary"
+                    onclick="speak('Career')">
+                🔊 Listen
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>Communication</h3>
+            <p>Pronunciation: kuh-myoo-ni-KAY-shun</p>
+            <button class="btn btn-secondary"
+                    onclick="speak('Communication')">
+                🔊 Listen
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>Interview</h3>
+            <p>Pronunciation: IN-ter-vyoo</p>
+            <button class="btn btn-secondary"
+                    onclick="speak('Interview')">
+                🔊 Listen
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DAILY CONVERSATION
+========================================================= -->
+
+<section id="dailyConversation" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Beginner / Conversation</div>
+            <h1>Daily Conversations</h1>
+            <p>Practice simple conversations.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishBeginner')">
+            ← Beginner
+        </button>
+    </div>
+
+
+    <div class="workspace">
+
+        <div class="workspace-card">
+
+            <h3>At College</h3>
+
+            <div class="output">
+                <strong>Person A:</strong> Good morning!<br>
+                <strong>Person B:</strong> Good morning! How are you?<br>
+                <strong>Person A:</strong> I am fine. How about you?<br>
+                <strong>Person B:</strong> I am good. Thank you.
+            </div>
+
+            <button class="btn btn-secondary"
+                    onclick="speak('Good morning! How are you? I am fine. How about you? I am good. Thank you.')">
+                🔊 Listen Conversation
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DAILY PRACTICE
+========================================================= -->
+
+<section id="dailyPractice" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Beginner / Daily Practice</div>
+            <h1>Today's English Practice</h1>
+            <p>Complete these simple challenges.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishBeginner')">
+            ← Beginner
+        </button>
+    </div>
+
+
+    <div class="workspace">
+
+        <div class="workspace-card">
+
+            <h3>Translate</h3>
+
+            <div class="question-box">
+                Translate: "నాకు కాలేజీకి వెళ్లాలి."
+            </div>
+
+            <input id="dailyAnswer"
+                   placeholder="Type your English answer">
+
+            <button class="btn btn-gold"
+                    style="margin-top:15px;"
+                    onclick="checkDailyAnswer()">
+                Check Answer
+            </button>
+
+            <div id="dailyResult"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTERMEDIATE
+========================================================= -->
+
+<section id="englishIntermediate" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">English / Intermediate</div>
+            <h1>Improve Your Communication</h1>
+            <p>
+                Strengthen grammar, speaking and professional English.
+            </p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('english')">
+            ← English
+        </button>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card module-card"
+             onclick="showScreen('grammar')">
+            <div class="number">01</div>
+            <h3>Grammar</h3>
+            <p>Tenses, articles, prepositions and more.</p>
+            <div class="card-action">Open Grammar →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('speaking')">
+            <div class="number">02</div>
+            <h3>Speaking Practice</h3>
+            <p>Answer questions and improve communication.</p>
+            <div class="card-action">Start Speaking →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('sentenceCorrection')">
+            <div class="number">03</div>
+            <h3>Sentence Correction</h3>
+            <p>Find and correct grammar mistakes.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('interviewBasics')">
+            <div class="number">04</div>
+            <h3>Interview Basics</h3>
+            <p>Learn how to answer common interview questions.</p>
+            <div class="card-action">Open Module →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('intermediateVocabulary')">
+            <div class="number">05</div>
+            <h3>Vocabulary</h3>
+            <p>Expand your professional vocabulary.</p>
+            <div class="card-action">Open Module →</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     GRAMMAR
+========================================================= -->
+
+<section id="grammar" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Intermediate / Grammar</div>
+            <h1>Grammar Essentials</h1>
+            <p>Strengthen the grammar needed for professional communication.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishIntermediate')">
+            ← Intermediate
+        </button>
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Tenses</h3>
+            <p>
+                Present, Past and Future.<br><br>
+                Example: I study.<br>
+                I studied.<br>
+                I will study.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Articles</h3>
+            <p>
+                A, An and The.<br><br>
+                Example: I saw a dog.<br>
+                She is an engineer.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Prepositions</h3>
+            <p>
+                in, on, at, from, to, with.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Subject-Verb Agreement</h3>
+            <p>
+                He works.<br>
+                They work.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Active / Passive Voice</h3>
+            <p>
+                Active: She wrote the letter.<br>
+                Passive: The letter was written by her.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Modals</h3>
+            <p>
+                can, could, may, might, should, must.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SPEAKING
+========================================================= -->
+
+<section id="speaking" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Intermediate / Speaking</div>
+            <h1>Speaking Practice</h1>
+            <p>Answer the question and receive personalized practice feedback.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishIntermediate')">
+            ← Intermediate
+        </button>
+    </div>
+
+
+    <div class="workspace">
+
+        <div class="workspace-card">
+
+            <div class="question-box">
+                Tell me about your college.
+            </div>
+
+            <textarea id="speakingAnswer"
+                      placeholder="Type your answer here..."></textarea>
+
+            <button class="btn btn-gold"
+                    style="margin-top:15px;"
+                    onclick="analyzeSpeaking()">
+                Analyze My Answer →
+            </button>
+
+            <div id="speakingResult"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SENTENCE CORRECTION
+========================================================= -->
+
+<section id="sentenceCorrection" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Intermediate / Grammar</div>
+            <h1>Sentence Correction</h1>
+            <p>Identify mistakes and improve your sentences.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishIntermediate')">
+            ← Intermediate
+        </button>
+    </div>
+
+
+    <div class="workspace">
+
+        <div class="workspace-card">
+
+            <h3>Correct this sentence</h3>
+
+            <div class="question-box">
+                "I am studying from three years."
+            </div>
+
+            <input id="correctionAnswer"
+                   placeholder="Type the corrected sentence">
+
+            <button class="btn btn-gold"
+                    style="margin-top:15px;"
+                    onclick="checkCorrection()">
+                Check Sentence
+            </button>
+
+            <div id="correctionResult"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTERVIEW BASICS
+========================================================= -->
+
+<section id="interviewBasics" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Intermediate / Interview</div>
+            <h1>Interview Basics</h1>
+            <p>Learn how to answer common interview questions.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishIntermediate')">
+            ← Intermediate
+        </button>
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Tell me about yourself</h3>
+            <p>
+                Use a simple structure:<br><br>
+                Present → Education → Skills → Goal
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Why should we hire you?</h3>
+            <p>
+                Focus on your skills, willingness to learn,
+                problem-solving ability and value to the company.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>STAR Method</h3>
+            <p>
+                Situation → Task → Action → Result
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTERMEDIATE VOCAB
+========================================================= -->
+
+<section id="intermediateVocabulary" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Intermediate / Vocabulary</div>
+            <h1>Professional Vocabulary</h1>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('englishIntermediate')">
+            ← Intermediate
+        </button>
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Collaborate</h3>
+            <p>Work together with others.</p>
+        </div>
+
+        <div class="card">
+            <h3>Implement</h3>
+            <p>Put a plan or idea into action.</p>
+        </div>
+
+        <div class="card">
+            <h3>Analyze</h3>
+            <p>Examine something carefully.</p>
+        </div>
+
+        <div class="card">
+            <h3>Optimize</h3>
+            <p>Make something work better.</p>
+        </div>
+
+        <div class="card">
+            <h3>Adapt</h3>
+            <p>Adjust to a new situation.</p>
+        </div>
+
+        <div class="card">
+            <h3>Demonstrate</h3>
+            <p>Show something clearly.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERT
+========================================================= -->
+
+<section id="englishExpert" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">English / Expert</div>
+            <h1>Master Professional Communication</h1>
+            <p>
+                Analyze communication quality beyond basic grammar.
+            </p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('english')">
+            ← English
+        </button>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card module-card"
+             onclick="showScreen('fluencyAnalysis')">
+            <div class="number">01</div>
+            <h3>Fluency Analysis</h3>
+            <p>Measure speaking flow and fluency.</p>
+            <div class="card-action">Analyze →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('pronunciationAnalysis')">
+            <div class="number">02</div>
+            <h3>Pronunciation Analysis</h3>
+            <p>Improve pronunciation and clarity.</p>
+            <div class="card-action">Analyze →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('vocabularyAnalysis')">
+            <div class="number">03</div>
+            <h3>Vocabulary Analysis</h3>
+            <p>Find repeated words and improve vocabulary variety.</p>
+            <div class="card-action">Analyze →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="showScreen('professionalCommunication')">
+            <div class="number">04</div>
+            <h3>Professional Communication</h3>
+            <p>Develop workplace-ready communication.</p>
+            <div class="card-action">Open Module →</div>
+        </div>
+
+    </div>
+
+
+    <div class="workspace" style="margin-top:50px;">
+
+        <div class="workspace-card">
+
+            <div class="eyebrow">AI Communication Analysis</div>
+
+            <div class="metric-grid">
+
+                <div class="metric">
+                    <small>Fluency</small>
+                    <strong>86%</strong>
+                    <div class="progress"><span style="width:86%"></span></div>
+                </div>
+
+                <div class="metric">
+                    <small>Grammar</small>
+                    <strong>91%</strong>
+                    <div class="progress"><span style="width:91%"></span></div>
+                </div>
+
+                <div class="metric">
+                    <small>Pronunciation</small>
+                    <strong>84%</strong>
+                    <div class="progress"><span style="width:84%"></span></div>
+                </div>
+
+                <div class="metric">
+                    <small>Vocabulary</small>
+                    <strong>78%</strong>
+                    <div class="progress"><span style="width:78%"></span></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERT MODULES
+========================================================= -->
+
+<section id="fluencyAnalysis" class="screen">
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Expert / Analysis</div>
+            <h1>Fluency Analysis</h1>
+            <p>Analyze speaking speed, pauses and communication flow.</p>
+        </div>
+        <button class="back-btn" onclick="showScreen('englishExpert')">
+            ← Expert
+        </button>
+    </div>
+
+    <div class="workspace">
+        <div class="workspace-card">
+            <div class="metric-grid">
+
+                <div class="metric">
+                    <small>Fluency</small>
+                    <strong>86%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Speaking Speed</small>
+                    <strong>128</strong>
+                    <small>words/min</small>
+                </div>
+
+                <div class="metric">
+                    <small>Long Pauses</small>
+                    <strong>4</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Filler Words</small>
+                    <strong>7</strong>
+                </div>
+
+            </div>
+
+            <div class="insight">
+                Your fluency is good. Try reducing long pauses and filler
+                words such as "umm", "actually" and "like".
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="pronunciationAnalysis" class="screen">
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Expert / Analysis</div>
+            <h1>Pronunciation Analysis</h1>
+            <p>Improve pronunciation and speaking clarity.</p>
+        </div>
+        <button class="back-btn" onclick="showScreen('englishExpert')">
+            ← Expert
+        </button>
+    </div>
+
+    <div class="workspace">
+        <div class="workspace-card">
+            <div class="metric-grid">
+                <div class="metric">
+                    <small>Pronunciation</small>
+                    <strong>84%</strong>
+                </div>
+                <div class="metric">
+                    <small>Clarity</small>
+                    <strong>89%</strong>
+                </div>
+                <div class="metric">
+                    <small>Stress</small>
+                    <strong>82%</strong>
+                </div>
+                <div class="metric">
+                    <small>Overall</small>
+                    <strong>85</strong>
+                </div>
+            </div>
+
+            <div class="insight">
+                Your pronunciation is understandable. Focus on word stress
+                and clear endings of words.
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="vocabularyAnalysis" class="screen">
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Expert / Analysis</div>
+            <h1>Vocabulary Analysis</h1>
+            <p>Detect repeated words and improve vocabulary variety.</p>
+        </div>
+        <button class="back-btn" onclick="showScreen('englishExpert')">
+            ← Expert
+        </button>
+    </div>
+
+    <div class="workspace">
+        <div class="workspace-card">
+
+            <div class="metric-grid">
+                <div class="metric">
+                    <small>Vocabulary</small>
+                    <strong>78%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Repeated Words</small>
+                    <strong>6</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Unique Words</small>
+                    <strong>71</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Clarity</small>
+                    <strong>89%</strong>
+                </div>
+            </div>
+
+            <div class="insight">
+                <strong>Main weakness: Vocabulary Variety</strong><br><br>
+                Try replacing repeated words with alternatives.
+                For example: good → effective, useful, valuable, strong.
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="professionalCommunication" class="screen">
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Expert / Professional</div>
+            <h1>Professional Communication</h1>
+            <p>Practice workplace-ready English.</p>
+        </div>
+        <button class="back-btn" onclick="showScreen('englishExpert')">
+            ← Expert
+        </button>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Email Communication</h3>
+            <p>Write clear and professional emails.</p>
+        </div>
+
+        <div class="card">
+            <h3>Meetings</h3>
+            <p>Learn how to speak confidently during meetings.</p>
+        </div>
+
+        <div class="card">
+            <h3>Presentations</h3>
+            <p>Improve professional presentation skills.</p>
+        </div>
+
+        <div class="card">
+            <h3>Workplace Conversations</h3>
+            <p>Handle professional conversations naturally.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     APTITUDE MAIN
+========================================================= -->
+
+<section id="aptitude" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">Aptitude & Reasoning</div>
+            <h1>Practice Smarter. Think Faster.</h1>
+            <p>
+                Build quantitative, logical and verbal reasoning skills
+                through adaptive practice.
+            </p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('home')">
+            ← Home
+        </button>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card level-card"
+             onclick="showScreen('aptitudeBeginner')">
+
+            <div class="level-number">LEVEL 01</div>
+
+            <h3>Beginner</h3>
+
+            <p>
+                Build strong fundamentals in numbers, percentages,
+                ratios, averages and basic arithmetic.
+            </p>
+
+            <div class="card-action">
+                Start Beginner →
+            </div>
+
+        </div>
+
+
+        <div class="card level-card"
+             onclick="showScreen('aptitudeIntermediate')">
+
+            <div class="level-number">LEVEL 02</div>
+
+            <h3>Intermediate</h3>
+
+            <p>
+                Solve placement-level aptitude questions and
+                improve problem-solving speed.
+            </p>
+
+            <div class="card-action">
+                Start Intermediate →
+            </div>
+
+        </div>
+
+
+        <div class="card level-card"
+             onclick="showScreen('aptitudeExpert')">
+
+            <div class="level-number">LEVEL 03</div>
+
+            <h3>Expert</h3>
+
+            <p>
+                Practice advanced aptitude, puzzles, probability,
+                permutations and data sufficiency.
+            </p>
+
+            <div class="card-action">
+                Start Expert →
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-head" style="margin-top:100px;">
+
+        <div class="eyebrow">AI Practice</div>
+
+        <h2>6,000+ Question Goal</h2>
+
+        <p>
+            The platform is designed to grow into an AI-generated
+            question system instead of depending on a fixed six-question set.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     APTITUDE BEGINNER
+========================================================= -->
+
+<section id="aptitudeBeginner" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Aptitude / Beginner</div>
+            <h1>Beginner Aptitude</h1>
+            <p>Master the fundamentals before moving to advanced problems.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('aptitude')">
+            ← Aptitude
+        </button>
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card module-card"
+             onclick="startAptitude('Number System','Beginner')">
+            <div class="number">01</div>
+            <h3>Number System</h3>
+            <p>Numbers, divisibility and basic operations.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="startAptitude('Percentages','Beginner')">
+            <div class="number">02</div>
+            <h3>Percentages</h3>
+            <p>Percentage increase, decrease and applications.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="startAptitude('Profit & Loss','Beginner')">
+            <div class="number">03</div>
+            <h3>Profit & Loss</h3>
+            <p>Cost price, selling price, profit and loss.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="startAptitude('Ratio & Proportion','Beginner')">
+            <div class="number">04</div>
+            <h3>Ratio & Proportion</h3>
+            <p>Basic ratio and proportion problems.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="startAptitude('Averages','Beginner')">
+            <div class="number">05</div>
+            <h3>Averages</h3>
+            <p>Calculate and apply averages.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card"
+             onclick="startAptitude('Time & Work','Beginner')">
+            <div class="number">06</div>
+            <h3>Time & Work</h3>
+            <p>Basic work and efficiency problems.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     APTITUDE INTERMEDIATE
+========================================================= -->
+
+<section id="aptitudeIntermediate" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Aptitude / Intermediate</div>
+            <h1>Intermediate Aptitude</h1>
+            <p>Placement-oriented problem solving.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('aptitude')">
+            ← Aptitude
+        </button>
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card module-card" onclick="startAptitude('Percentages','Intermediate')">
+            <div class="number">01</div>
+            <h3>Percentages</h3>
+            <p>Advanced percentage applications.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Profit & Loss','Intermediate')">
+            <div class="number">02</div>
+            <h3>Profit & Loss</h3>
+            <p>Discounts, marked price and profit.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Ratio & Proportion','Intermediate')">
+            <div class="number">03</div>
+            <h3>Ratio & Proportion</h3>
+            <p>Complex ratio problems.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Averages','Intermediate')">
+            <div class="number">04</div>
+            <h3>Averages</h3>
+            <p>Weighted and combined averages.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Time & Work','Intermediate')">
+            <div class="number">05</div>
+            <h3>Time & Work</h3>
+            <p>Multiple workers and efficiency.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Time, Speed & Distance','Intermediate')">
+            <div class="number">06</div>
+            <h3>Time, Speed & Distance</h3>
+            <p>Speed, distance and relative motion.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Algebra','Intermediate')">
+            <div class="number">07</div>
+            <h3>Algebra</h3>
+            <p>Equations and algebraic reasoning.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Probability','Intermediate')">
+            <div class="number">08</div>
+            <h3>Probability</h3>
+            <p>Basic probability calculations.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     APTITUDE EXPERT
+========================================================= -->
+
+<section id="aptitudeExpert" class="screen">
+
+    <div class="page-header">
+        <div>
+            <div class="eyebrow">Aptitude / Expert</div>
+            <h1>Expert Aptitude</h1>
+            <p>Challenge yourself with advanced placement problems.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('aptitude')">
+            ← Aptitude
+        </button>
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card module-card" onclick="startAptitude('Advanced Percentages','Expert')">
+            <div class="number">01</div>
+            <h3>Advanced Percentages</h3>
+            <p>Multi-step percentage problems.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Advanced Profit & Loss','Expert')">
+            <div class="number">02</div>
+            <h3>Advanced Profit & Loss</h3>
+            <p>Complex profit and discount problems.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Permutation & Combination','Expert')">
+            <div class="number">03</div>
+            <h3>Permutation & Combination</h3>
+            <p>Advanced counting problems.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Probability','Expert')">
+            <div class="number">04</div>
+            <h3>Advanced Probability</h3>
+            <p>Complex probability questions.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Puzzles','Expert')">
+            <div class="number">05</div>
+            <h3>Puzzles</h3>
+            <p>Complex logical puzzles.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Seating Arrangement','Expert')">
+            <div class="number">06</div>
+            <h3>Seating Arrangement</h3>
+            <p>Linear and circular arrangements.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Data Sufficiency','Expert')">
+            <div class="number">07</div>
+            <h3>Data Sufficiency</h3>
+            <p>Determine whether given information is sufficient.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="startAptitude('Data Interpretation','Expert')">
+            <div class="number">08</div>
+            <h3>Data Interpretation</h3>
+            <p>Analyze tables, charts and numerical data.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     APTITUDE PRACTICE ENGINE
+========================================================= -->
+
+<section id="aptitudePractice" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">AI Aptitude Practice</div>
+            <h1 id="aptitudePracticeTitle">Practice</h1>
+            <p id="aptitudePracticeSub">
+                Solve fresh AI-generated questions and track your practice.
+            </p>
+        </div>
+
+        <button class="back-btn"
+                onclick="showScreen('aptitude')">
+            ← Aptitude
+        </button>
+
+    </div>
+
+
+    <div class="workspace">
+
+        <div class="workspace-card">
+
+            <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+
+                <div>
+                    <span style="color:#777;font-size:12px;">LEVEL</span>
+                    <strong id="practiceLevel"
+                            style="display:block;margin-top:5px;">
+                        Beginner
+                    </strong>
+                </div>
+
+                <div>
+                    <span style="color:#777;font-size:12px;">TOPIC</span>
+                    <strong id="practiceTopic"
+                            style="display:block;margin-top:5px;">
+                        Percentages
+                    </strong>
+                </div>
+
+                <div>
+                    <span style="color:#777;font-size:12px;">SCORE</span>
+                    <strong id="practiceScore"
+                            style="display:block;margin-top:5px;color:#d4af37;">
+                        0
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="question-box"
+                 id="aptitudeQuestion">
+                Click Generate Question to start.
+            </div>
+
+
+            <div id="aptitudeOptions"></div>
+
+
+            <button class="btn btn-gold"
+                    onclick="generateAptitudeQuestion()">
+                ✦ Generate Question
+            </button>
+
+            <button class="btn btn-secondary"
+                    onclick="checkAptitudeAnswer()"
+                    style="margin-left:8px;">
+                Check Answer
+            </button>
+
+
+            <div id="aptitudeResult"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTERVIEW MAIN
+========================================================= -->
+
+<section id="interview" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">Interview Preparation</div>
+            <h1>Prepare. Practice. Perform.</h1>
+            <p>
+                Build confidence for HR interviews, technical interviews
+                and AI-powered mock interviews.
+            </p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('home')">
+            ← Home
+        </button>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card level-card"
+             onclick="showScreen('hrInterview')">
+
+            <div class="level-number">01</div>
+
+            <h3>HR Interview</h3>
+
+            <p>
+                Practice common HR questions, self-introduction,
+                strengths, weaknesses and STAR answers.
+            </p>
+
+            <div class="card-action">
+                Start HR Preparation →
+            </div>
+
+        </div>
+
+
+        <div class="card level-card"
+             onclick="showScreen('technicalInterview')">
+
+            <div class="level-number">02</div>
+
+            <h3>Technical Interview</h3>
+
+            <p>
+                Prepare for C, Java, Python, DSA, DBMS, OOP, OS,
+                Networks, AI/ML and Web Development.
+            </p>
+
+            <div class="card-action">
+                Start Technical →
+            </div>
+
+        </div>
+
+
+        <div class="card level-card"
+             onclick="showScreen('aiMockInterview')">
+
+            <div class="level-number">03</div>
+
+            <h3>AI Mock Interview</h3>
+
+            <p>
+                Simulate a real interview and receive communication,
+                technical relevance and confidence feedback.
+            </p>
+
+            <div class="card-action">
+                Start AI Mock →
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-head" style="margin-top:90px;">
+        <div class="eyebrow">Interview Flow</div>
+        <h2>Prepare Like It's Real</h2>
+    </div>
+
+
+    <div class="flow">
+
+        <div class="flow-item">
+            <span>01</span>
+            <strong>Choose Role</strong>
+            <span>Select your target role</span>
+        </div>
+
+        <div class="flow-item">
+            <span>02</span>
+            <strong>Answer</strong>
+            <span>Respond naturally</span>
+        </div>
+
+        <div class="flow-item">
+            <span>03</span>
+            <strong>Analyze</strong>
+            <span>AI evaluates your response</span>
+        </div>
+
+        <div class="flow-item">
+            <span>04</span>
+            <strong>Improve</strong>
+            <span>Practice your weak areas</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     HR INTERVIEW
+========================================================= -->
+
+<section id="hrInterview" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">Interview / HR</div>
+            <h1>HR Interview Preparation</h1>
+            <p>Practice the most common HR interview questions.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('interview')">
+            ← Interview
+        </button>
+
+    </div>
+
+
+    <div class="workspace">
+
+        <div class="workspace-card">
+
+            <div class="question-box">
+                Tell me about yourself.
+            </div>
+
+            <textarea id="hrAnswer"
+                      placeholder="Type your answer..."></textarea>
+
+            <button class="btn btn-gold"
+                    style="margin-top:15px;"
+                    onclick="analyzeHR()">
+                Analyze Answer →
+            </button>
+
+            <div id="hrResult"></div>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>Common Questions</h3>
+                <p>
+                    Tell me about yourself.<br>
+                    Why should we hire you?<br>
+                    What are your strengths?<br>
+                    What is your weakness?
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>STAR Method</h3>
+                <p>
+                    Situation<br>
+                    Task<br>
+                    Action<br>
+                    Result
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TECHNICAL INTERVIEW
+========================================================= -->
+
+<section id="technicalInterview" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">Interview / Technical</div>
+            <h1>Technical Interview</h1>
+            <p>Choose a CSM/Computer Science topic to practice.</p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('interview')">
+            ← Interview
+        </button>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card module-card" onclick="technicalTopic('Programming')">
+            <div class="number">01</div>
+            <h3>Programming</h3>
+            <p>C, Java and Python fundamentals.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="technicalTopic('DSA')">
+            <div class="number">02</div>
+            <h3>Data Structures & Algorithms</h3>
+            <p>Arrays, linked lists, stacks, queues and algorithms.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="technicalTopic('DBMS')">
+            <div class="number">03</div>
+            <h3>DBMS</h3>
+            <p>SQL, normalization and database concepts.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="technicalTopic('OOP')">
+            <div class="number">04</div>
+            <h3>OOP</h3>
+            <p>Classes, objects, inheritance and polymorphism.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="technicalTopic('Operating Systems')">
+            <div class="number">05</div>
+            <h3>Operating Systems</h3>
+            <p>Processes, threads, memory and deadlocks.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="technicalTopic('Computer Networks')">
+            <div class="number">06</div>
+            <h3>Computer Networks</h3>
+            <p>OSI, TCP/IP, protocols and networking concepts.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="technicalTopic('AI/ML')">
+            <div class="number">07</div>
+            <h3>AI / ML</h3>
+            <p>Machine learning and artificial intelligence concepts.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+        <div class="card module-card" onclick="technicalTopic('Web Development')">
+            <div class="number">08</div>
+            <h3>Web Development</h3>
+            <p>HTML, CSS, JavaScript, Node and APIs.</p>
+            <div class="card-action">Practice →</div>
+        </div>
+
+    </div>
+
+
+    <div class="workspace" style="margin-top:30px;">
+
+        <div class="workspace-card">
+
+            <h3 id="technicalQuestionTitle">
+                Select a topic
+            </h3>
+
+            <div class="question-box"
+                 id="technicalQuestion">
+                Choose a topic above to generate a technical question.
+            </div>
+
+            <textarea id="technicalAnswer"
+                      placeholder="Write your answer..."></textarea>
+
+            <button class="btn btn-gold"
+                    style="margin-top:15px;"
+                    onclick="analyzeTechnical()">
+                Analyze Answer →
+            </button>
+
+            <div id="technicalResult"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     AI MOCK INTERVIEW
+========================================================= -->
+
+<section id="aiMockInterview" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">Interview / AI</div>
+            <h1>AI Mock Interview</h1>
+            <p>
+                Experience an interview-style practice session with
+                personalized performance analysis.
+            </p>
+        </div>
+
+        <button class="back-btn" onclick="showScreen('interview')">
+            ← Interview
+        </button>
+
+    </div>
+
+
+    <div class="workspace">
+
+        <div class="workspace-card">
+
+            <div class="form-row">
+
+                <div>
+                    <label>Target Role</label>
+
+                    <select id="mockRole">
+                        <option>Software Developer</option>
+                        <option>Full Stack Developer</option>
+                        <option>AI/ML Engineer</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Difficulty</label>
+
+                    <select id="mockDifficulty">
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Expert</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <button class="btn btn-gold"
+                    onclick="startMockInterview()">
+                Start Mock Interview →
+            </button>
+
+        </div>
+
+
+        <div class="workspace-card"
+             id="mockInterviewArea"
+             style="display:none;">
+
+            <div class="eyebrow">AI Interviewer</div>
+
+            <div class="question-box"
+                 id="mockQuestion">
+            </div>
+
+            <textarea id="mockAnswer"
+                      placeholder="Type your answer here..."></textarea>
+
+            <button class="btn btn-gold"
+                    style="margin-top:15px;"
+                    onclick="analyzeMockAnswer()">
+                Analyze Response →
+            </button>
+
+            <div id="mockResult"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section id="dashboard" class="screen">
+
+    <div class="page-header">
+
+        <div>
+            <div class="eyebrow">Your Progress</div>
+            <h1>Career Dashboard</h1>
+            <p>
+                See your current career readiness and focus areas.
+            </p>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <div class="user-profile-badge" id="dashboardUserProfile">
+                <div class="user-avatar-circle" id="dashboardAvatarInitial">U</div>
+                <div class="user-profile-meta">
+                    <strong id="dashboardUserName">User Name</strong>
+                    <span id="dashboardUserEmail">user@example.com</span>
+                </div>
+            </div>
+            <button class="nav-logout-btn" onclick="logoutUser()" title="Sign Out">
+                Sign Out
+            </button>
+            <button class="back-btn" onclick="showScreen('home')">
+                ← Home
+            </button>
+        </div>
+
+    </div>
+
+
+    <div class="grid-2">
+
+        <div class="dashboard-score">
+
+            <span>CAREER READINESS SCORE</span>
+
+            <strong id="dashboardScore">
+                78
+            </strong>
+
+            <span>out of 100</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="eyebrow">AI Recommendation</div>
+
+            <h3>Focus on weak areas</h3>
+
+            <p>
+                Practice percentages in aptitude and improve vocabulary
+                variety in English communication.
+            </p>
+
+            <button class="btn btn-gold"
+                    style="margin-top:20px;"
+                    onclick="showScreen('aptitude')">
+                Practice Now →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div style="margin-top:25px;" class="metric-grid">
+
+        <div class="metric">
+
+            <small>English Communication</small>
+
+            <strong>82%</strong>
+
+            <div class="progress">
+                <span style="width:82%"></span>
+            </div>
+
+        </div>
+
+
+        <div class="metric">
+
+            <small>Aptitude</small>
+
+            <strong>76%</strong>
+
+            <div class="progress">
+                <span style="width:76%"></span>
+            </div>
+
+        </div>
+
+
+        <div class="metric">
+
+            <small>Interview Skills</small>
+
+            <strong>74%</strong>
+
+            <div class="progress">
+                <span style="width:74%"></span>
+            </div>
+
+        </div>
+
+
+        <div class="metric">
+
+            <small>Practice Streak</small>
+
+            <strong>7</strong>
+
+            <small>days</small>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-head" style="margin-top:90px;margin-bottom:30px;">
+
+        <div class="eyebrow">Growth System</div>
+
+        <h2>Track. Detect. Improve.</h2>
+
+        <p>
+            CareerSense AI is designed to identify weaknesses over time
+            and personalize future practice.
+        </p>
+
+    </div>
+
+
+    <div class="flow">
+
+        <div class="flow-item">
+            <span>DAY 1</span>
+            <strong>Grammar 62%</strong>
+            <span>Fluency 55%</span>
+        </div>
+
+        <div class="flow-item">
+            <span>DAY 4</span>
+            <strong>Grammar 68%</strong>
+            <span>Vocabulary 66%</span>
+        </div>
+
+        <div class="flow-item">
+            <span>DAY 7</span>
+            <strong>Grammar 74%</strong>
+            <span>Fluency 70%</span>
+        </div>
+
+        <div class="flow-item">
+            <span>AI</span>
+            <strong>+12%</strong>
+            <span>Grammar improvement</span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     LOGIN SCREEN
+========================================================= -->
+
+<section id="login" class="screen">
+    <div class="auth-wrapper">
+        <button class="back-btn" style="margin-bottom:24px;" onclick="showScreen('home')">
+            ← Back to Home
+        </button>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo" style="margin-bottom:12px;" onclick="showScreen('home')">
+                    CareerSense <span>AI</span>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Sign in to access your personalized career dashboard & progress</p>
+            </div>
+
+            <div id="loginAlert" class="auth-alert" style="display:none;"></div>
+
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)" novalidate>
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <input type="email" id="loginEmail" class="input-with-icon" placeholder="name@example.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="loginPassword" class="input-with-icon input-with-toggle" placeholder="Enter your password" required autocomplete="current-password">
+                        <button type="button" class="pwd-toggle-btn" onclick="togglePasswordVisibility('loginPassword', this)" title="Show/Hide Password" aria-label="Toggle password visibility">
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="eye-closed" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="auth-row-between">
+                    <label class="auth-checkbox-label">
+                        <input type="checkbox" id="loginRemember" checked>
+                        <span>Remember me</span>
+                    </label>
+                    <a href="javascript:void(0)" class="auth-link" onclick="showScreen('forgotPassword')">Forgot Password?</a>
+                </div>
+
+                <button type="submit" id="loginSubmitBtn" class="btn btn-gold btn-auth-submit">
+                    <span class="btn-text">Sign In →</span>
+                    <span class="btn-spinner" style="display:none;"><span class="spinner"></span> Authenticating...</span>
+                </button>
+            </form>
+
+            <div class="auth-divider"><span>or continue with</span></div>
+
+            <button type="button" class="btn-google" onclick="handleGoogleAuth()">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.6 14.8c-.3-.8-.4-1.8-.4-2.8s.2-1.9.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
+                Continue with Google
+            </button>
+
+            <div class="auth-footer-text">
+                Don't have an account? <a href="javascript:void(0)" class="auth-link" onclick="showScreen('signup')">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     SIGNUP SCREEN
+========================================================= -->
+
+<section id="signup" class="screen">
+    <div class="auth-wrapper">
+        <button class="back-btn" style="margin-bottom:24px;" onclick="showScreen('home')">
+            ← Back to Home
+        </button>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo" style="margin-bottom:12px;" onclick="showScreen('home')">
+                    CareerSense <span>AI</span>
+                </div>
+                <h2>Create Account</h2>
+                <p>Start your AI-powered career preparation journey today</p>
+            </div>
+
+            <div id="signupAlert" class="auth-alert" style="display:none;"></div>
+
+            <form id="signupForm" onsubmit="handleSignupSubmit(event)" novalidate>
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <input type="text" id="signupName" class="input-with-icon" placeholder="e.g. Alex Johnson" required autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <input type="email" id="signupEmail" class="input-with-icon" placeholder="name@example.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="signupPassword" class="input-with-icon input-with-toggle" placeholder="At least 6 characters" required oninput="evaluatePasswordStrength(this.value)">
+                        <button type="button" class="pwd-toggle-btn" onclick="togglePasswordVisibility('signupPassword', this)" title="Show/Hide Password" aria-label="Toggle password visibility">
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="eye-closed" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                        </button>
+                    </div>
+                    <!-- Password Strength Bar -->
+                    <div class="password-strength-wrap">
+                        <div class="strength-track">
+                            <div id="strengthBar" class="strength-bar"></div>
+                        </div>
+                        <div class="strength-meta">
+                            <span>Password strength:</span>
+                            <span id="strengthText" style="color:#888;">Enter password</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 22 4-4H8l4 4z"/><path d="M12 2v10"/><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/></svg>
+                        <input type="password" id="signupConfirmPassword" class="input-with-icon input-with-toggle" placeholder="Re-enter password" required oninput="validatePasswordMatch()">
+                        <button type="button" class="pwd-toggle-btn" onclick="togglePasswordVisibility('signupConfirmPassword', this)" title="Show/Hide Password" aria-label="Toggle password visibility">
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg class="eye-closed" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                        </button>
+                    </div>
+                    <div id="matchFeedback" style="font-size:11px;margin-top:5px;display:none;"></div>
+                </div>
+
+                <div class="auth-row-between" style="margin-top:10px;">
+                    <label class="auth-checkbox-label">
+                        <input type="checkbox" id="signupTerms" required>
+                        <span>I agree to the <a href="javascript:void(0)" class="auth-link">Terms of Service</a> & <a href="javascript:void(0)" class="auth-link">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" id="signupSubmitBtn" class="btn btn-gold btn-auth-submit">
+                    <span class="btn-text">Create Account →</span>
+                    <span class="btn-spinner" style="display:none;"><span class="spinner"></span> Creating Account...</span>
+                </button>
+            </form>
+
+            <div class="auth-divider"><span>or register with</span></div>
+
+            <button type="button" class="btn-google" onclick="handleGoogleAuth()">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.6 14.8c-.3-.8-.4-1.8-.4-2.8s.2-1.9.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
+                Sign Up with Google
+            </button>
+
+            <div class="auth-footer-text">
+                Already have an account? <a href="javascript:void(0)" class="auth-link" onclick="showScreen('login')">Sign In</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     FORGOT PASSWORD SCREEN
+========================================================= -->
+
+<section id="forgotPassword" class="screen">
+    <div class="auth-wrapper">
+        <button class="back-btn" style="margin-bottom:24px;" onclick="showScreen('login')">
+            ← Back to Login
+        </button>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo" style="margin-bottom:12px;" onclick="showScreen('home')">
+                    CareerSense <span>AI</span>
+                </div>
+                <h2>Reset Password</h2>
+                <p>Enter your registered email and we'll help you reset your password</p>
+            </div>
+
+            <div id="forgotAlert" class="auth-alert" style="display:none;"></div>
+
+            <!-- Step 1: Request Reset Token -->
+            <form id="forgotForm" onsubmit="handleForgotSubmit(event)" novalidate>
+                <div class="form-group">
+                    <label for="forgotEmail">Email Address</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <input type="email" id="forgotEmail" class="input-with-icon" placeholder="name@example.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <button type="submit" id="forgotSubmitBtn" class="btn btn-gold btn-auth-submit">
+                    <span class="btn-text">Send Reset Link →</span>
+                    <span class="btn-spinner" style="display:none;"><span class="spinner"></span> Generating Instructions...</span>
+                </button>
+            </form>
+
+            <!-- Step 2: Update Password Form -->
+            <form id="resetForm" style="display:none;margin-top:24px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;" onsubmit="handleResetSubmit(event)" novalidate>
+                <div class="eyebrow" style="margin-bottom:12px;">Step 2: Enter New Password</div>
+                
+                <div class="form-group">
+                    <label for="resetTokenInput">Reset Token / Code</label>
+                    <div class="input-wrap">
+                        <input type="text" id="resetTokenInput" placeholder="Paste reset token here" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="resetNewPassword">New Password</label>
+                    <div class="input-wrap">
+                        <input type="password" id="resetNewPassword" placeholder="Minimum 6 characters" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="resetConfirmPassword">Confirm New Password</label>
+                    <div class="input-wrap">
+                        <input type="password" id="resetConfirmPassword" placeholder="Confirm new password" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="resetSubmitBtn" class="btn btn-gold btn-auth-submit">
+                    <span class="btn-text">Update Password →</span>
+                    <span class="btn-spinner" style="display:none;"><span class="spinner"></span> Updating Password...</span>
+                </button>
+            </form>
+
+            <div class="auth-footer-text" style="margin-top:24px;">
+                Remembered your password? <a href="javascript:void(0)" class="auth-link" onclick="showScreen('login')">Back to Login</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div id="toast"></div>
+
+
+<footer>
+    <strong>CareerSense AI</strong> —
+    Learn. Practice. Communicate. Get Career Ready.
+</footer>
+
+
+<script>
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+const particleContainer = document.getElementById("particles");
+
+for(let i = 0; i < 100; i++){
+
+    const particle = document.createElement("div");
+
+    particle.className = "particle";
+
+    const size = Math.random() * 3 + 1;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 15 + 8;
+    const delay = Math.random() * -20;
+    const drift = (Math.random() * 200 - 100) + "px";
+
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+    particle.style.left = left + "%";
+    particle.style.animationDuration = duration + "s";
+    particle.style.animationDelay = delay + "s";
+    particle.style.setProperty("--drift",drift);
+
+    particleContainer.appendChild(particle);
+}
+
+
+/* =========================================================
+   SCREEN NAVIGATION
+========================================================= */
+
+function showScreen(screenId){
+
+    // Protected Route Guard for Dashboard
+    if(screenId === "dashboard" && !currentUser){
+        authRedirectTarget = "dashboard";
+        toast("Please log in to access your Career Dashboard");
+        showScreen("login");
+        return;
+    }
+
+    document.querySelectorAll(".screen").forEach(screen=>{
+        screen.classList.remove("active");
+    });
+
+    const target = document.getElementById(screenId);
+
+    if(target){
+        target.classList.add("active");
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+    }
+
+    const navLinks = document.getElementById("navLinks");
+    if(navLinks) navLinks.classList.remove("show");
+
+    if(["login", "signup", "forgotPassword"].includes(screenId)){
+        clearAuthAlerts();
+    }
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMenu(){
+
+    document.getElementById("navLinks")
+        .classList.toggle("show");
+
+}
+
+
+/* =========================================================
+   TOAST — NO ALERT POPUPS
+========================================================= */
+
+function toast(message){
+
+    const box = document.getElementById("toast");
+
+    box.textContent = message;
+
+    box.classList.add("show");
+
+    setTimeout(()=>{
+        box.classList.remove("show");
+    },2500);
+}
+
+
+/* =========================================================
+   SPEECH
+========================================================= */
+
+function speak(text){
+
+    if("speechSynthesis" in window){
+
+        const speech = new SpeechSynthesisUtterance(text);
+
+        speech.rate = .9;
+        speech.pitch = 1;
+
+        window.speechSynthesis.cancel();
+
+        window.speechSynthesis.speak(speech);
+
+    }else{
+
+        toast("Speech is not supported in this browser.");
+
+    }
+
+}
+
+
+/* =========================================================
+   TRANSLATOR
+   Demo now
+   Backend-ready later
+========================================================= */
+
+const translations = {
+
+    "నాకు ఆకలిగా ఉంది.":"I am hungry.",
+    "నాకు ఆకలిగా ఉంది":"I am hungry.",
+
+    "నాకు కాలేజీకి వెళ్లాలి.":"I have to go to college.",
+    "నాకు కాలేజీకి వెళ్లాలి":"I have to go to college.",
+
+    "నేను ప్రతిరోజూ చదువుతాను.":"I study every day.",
+    "నేను ప్రతిరోజూ చదువుతాను":"I study every day.",
+
+    "నా పేరు ఆథిక.":"My name is Aathika.",
+    "నా పేరు ఆథిక":"My name is Aathika.",
+
+    "మీ పేరు ఏమిటి?":"What is your name?",
+    "మీ పేరు ఏమిటి":"What is your name?",
+
+    "మీరు ఎలా ఉన్నారు?":"How are you?",
+    "మీరు ఎలా ఉన్నారు":"How are you?",
+
+    "నేను బాగున్నాను.":"I am fine.",
+    "నేను బాగున్నాను":"I am fine.",
+
+    "నేను బిటెక్ చదువుతున్నాను.":"I am studying B.Tech.",
+    "నేను బిటెక్ చదువుతున్నాను":"I am studying B.Tech.",
+
+    "I am hungry.":"నాకు ఆకలిగా ఉంది.",
+    "I have to go to college.":"నాకు కాలేజీకి వెళ్లాలి.",
+    "I study every day.":"నేను ప్రతిరోజూ చదువుతాను.",
+    "My name is Aathika.":"నా పేరు ఆథిక.",
+    "What is your name?":"మీ పేరు ఏమిటి?",
+    "How are you?":"మీరు ఎలా ఉన్నారు?",
+    "I am fine.":"నేను బాగున్నాను.",
+    "I am studying B.Tech.":"నేను బిటెక్ చదువుతున్నాను."
+
+};
+
+
+function loadTranslationExample(){
+
+    const example =
+        document.getElementById("translationExample").value;
+
+    const direction =
+        document.getElementById("translationDirection").value;
+
+    const input =
+        document.getElementById("translationInput");
+
+
+    const examples = {
+
+        hungry:{
+            te:"నాకు ఆకలిగా ఉంది.",
+            en:"I am hungry."
+        },
+
+        college:{
+            te:"నాకు కాలేజీకి వెళ్లాలి.",
+            en:"I have to go to college."
+        },
+
+        name:{
+            te:"మీ పేరు ఏమిటి?",
+            en:"What is your name?"
+        },
+
+        study:{
+            te:"నేను బిటెక్ చదువుతున్నాను.",
+            en:"I am studying B.Tech."
+        }
+
+    };
+
+
+    if(!examples[example]) return;
+
+    input.value =
+        direction === "te-en"
+        ? examples[example].te
+        : examples[example].en;
+
+}
+
+
+async function translateText(){
+
+    const input = document.getElementById("translationInput").value.trim();
+    const direction = document.getElementById("translationDirection").value;
+    const output = document.getElementById("translationOutput");
+    const telugu = document.getElementById("translationTelugu");
+
+    if(!input){
+        output.textContent = "Please enter a sentence.";
+        telugu.textContent = "";
+        return;
+    }
+
+    const targetLanguage = direction === "te-en" ? "English" : "Telugu";
+
+    output.textContent = "AI is translating...";
+    telugu.textContent = "Connecting to CareerSense AI...";
+
+    try{
+
+        const response = await fetch("http://localhost:5000/api/english/translate",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                text:input,
+                targetLanguage:targetLanguage
+            })
+        });
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success){
+            throw new Error(data.message || "Translation failed");
+        }
+
+        output.textContent = data.translation;
+
+        if(direction === "te-en"){
+            telugu.textContent = "Original Telugu: " + input;
+        }else{
+            telugu.textContent = "Original English: " + input;
+        }
+
+    }catch(error){
+
+        console.error("Translation error:",error);
+
+        // Keep the existing demo examples working if the backend is temporarily offline.
+        const demo = translations[input];
+
+        if(demo){
+            output.textContent = demo;
+            telugu.textContent = "Demo translation (backend unavailable).";
+        }else{
+            output.textContent = "Unable to connect to CareerSense AI.";
+            telugu.textContent = "Please make sure the backend is running on port 5000.";
+        }
+    }
+}
+
+
+function speakTranslation(){
+
+    const text =
+        document.getElementById("translationOutput")
+        .textContent;
+
+    if(text &&
+       !text.includes("will appear") &&
+       !text.includes("Demo translation")){
+
+        speak(text);
+
+    }else{
+
+        toast("Translate something first.");
+
+    }
+
+}
+
+
+/* =========================================================
+   DAILY PRACTICE
+========================================================= */
+
+function checkDailyAnswer(){
+
+    const answer =
+        document.getElementById("dailyAnswer")
+        .value.trim()
+        .toLowerCase();
+
+    const result =
+        document.getElementById("dailyResult");
+
+
+    if(
+        answer.includes("college") &&
+        (answer.includes("go") || answer.includes("have"))
+    ){
+
+        result.innerHTML = `
+            <div class="result-box correct">
+                ✓ Correct!<br><br>
+                Good answer. One natural sentence is:
+                <strong>I have to go to college.</strong>
+            </div>
+        `;
+
+    }else{
+
+        result.innerHTML = `
+            <div class="result-box wrong">
+                Try again.<br><br>
+                Expected answer:
+                <strong>I have to go to college.</strong>
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   SPEAKING ANALYSIS
+========================================================= */
+
+function analyzeSpeaking(){
+
+    const answer =
+        document.getElementById("speakingAnswer")
+        .value.trim();
+
+    const result =
+        document.getElementById("speakingResult");
+
+
+    if(!answer){
+
+        result.innerHTML = `
+            <div class="result-box">
+                Please write your answer first.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const words =
+        answer.split(/\s+/).length;
+
+    let grammar = 80;
+    let vocabulary = 76;
+    let fluency = 82;
+
+    if(words > 25){
+        grammar += 5;
+        vocabulary += 5;
+        fluency += 4;
+    }
+
+
+    result.innerHTML = `
+
+        <div class="result-box">
+
+            <div class="eyebrow">AI Feedback</div>
+
+            <div class="metric-grid">
+
+                <div class="metric">
+                    <small>Grammar</small>
+                    <strong>${Math.min(grammar,100)}%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Vocabulary</small>
+                    <strong>${Math.min(vocabulary,100)}%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Fluency</small>
+                    <strong>${Math.min(fluency,100)}%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Words</small>
+                    <strong>${words}</strong>
+                </div>
+
+            </div>
+
+            <div class="insight">
+                Your response has a good basic structure.
+                Try using more specific vocabulary and longer,
+                naturally connected sentences.
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SENTENCE CORRECTION
+========================================================= */
+
+function checkCorrection(){
+
+    const answer =
+        document.getElementById("correctionAnswer")
+        .value.trim().toLowerCase();
+
+    const result =
+        document.getElementById("correctionResult");
+
+
+    if(
+        answer.includes("have been studying") &&
+        answer.includes("three years")
+    ){
+
+        result.innerHTML = `
+            <div class="result-box correct">
+                ✓ Correct!<br><br>
+                <strong>I have been studying for three years.</strong><br><br>
+                We use "for" with a duration of time.
+            </div>
+        `;
+
+    }else{
+
+        result.innerHTML = `
+            <div class="result-box wrong">
+                Correct answer:<br><br>
+                <strong>I have been studying for three years.</strong>
+                <br><br>
+                Use "for" for a duration of time.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   APTITUDE ENGINE
+========================================================= */
+
+let currentTopic = "";
+let currentLevel = "";
+let currentQuestion = null;
+let aptitudeScore = 0;
+
+
+const aptitudeQuestions = {
+
+    "Percentages":[
+
+        {
+            q:"What is 20% of 250?",
+            options:["40","50","60","70"],
+            answer:"50",
+            explanation:"20/100 × 250 = 50."
+        },
+
+        {
+            q:"A price of ₹500 is increased by 10%. What is the new price?",
+            options:["₹510","₹525","₹550","₹600"],
+            answer:"₹550",
+            explanation:"10% of 500 = 50. Therefore 500 + 50 = ₹550."
+        },
+
+        {
+            q:"A number is increased from 100 to 120. What is the percentage increase?",
+            options:["10%","15%","20%","25%"],
+            answer:"20%",
+            explanation:"Increase = 20. 20/100 × 100 = 20%."
+        }
+
+    ],
+
+
+    "Number System":[
+
+        {
+            q:"Which of the following is a prime number?",
+            options:["21","29","35","39"],
+            answer:"29",
+            explanation:"29 has only two factors: 1 and 29."
+        },
+
+        {
+            q:"What is the remainder when 25 is divided by 4?",
+            options:["0","1","2","3"],
+            answer:"1",
+            explanation:"25 = 4 × 6 + 1."
+        }
+
+    ],
+
+
+    "Profit & Loss":[
+
+        {
+            q:"An item costs ₹100 and is sold for ₹120. What is the profit percentage?",
+            options:["10%","15%","20%","25%"],
+            answer:"20%",
+            explanation:"Profit = 20. Profit% = 20/100 × 100 = 20%."
+        },
+
+        {
+            q:"An item is bought for ₹500 and sold for ₹450. What is the loss?",
+            options:["₹25","₹40","₹50","₹75"],
+            answer:"₹50",
+            explanation:"Loss = Cost Price − Selling Price = 500 − 450 = ₹50."
+        }
+
+    ],
+
+
+    "Ratio & Proportion":[
+
+        {
+            q:"The ratio of 20 to 30 is:",
+            options:["1:2","2:3","3:2","4:5"],
+            answer:"2:3",
+            explanation:"20:30 divided by 10 gives 2:3."
+        }
+
+    ],
+
+
+    "Averages":[
+
+        {
+            q:"What is the average of 10, 20 and 30?",
+            options:["15","20","25","30"],
+            answer:"20",
+            explanation:"(10 + 20 + 30) / 3 = 20."
+        }
+
+    ],
+
+
+    "Time & Work":[
+
+        {
+            q:"If a person completes a work in 10 days, what fraction of work is completed in one day?",
+            options:["1/5","1/10","1/20","10"],
+            answer:"1/10",
+            explanation:"One day's work = 1/total days = 1/10."
+        }
+
+    ],
+
+
+    "Time, Speed & Distance":[
+
+        {
+            q:"A car travels 120 km in 2 hours. What is its speed?",
+            options:["40 km/h","50 km/h","60 km/h","80 km/h"],
+            answer:"60 km/h",
+            explanation:"Speed = Distance / Time = 120/2 = 60 km/h."
+        }
+
+    ],
+
+
+    "Algebra":[
+
+        {
+            q:"If x + 5 = 12, what is x?",
+            options:["5","6","7","8"],
+            answer:"7",
+            explanation:"x = 12 − 5 = 7."
+        }
+
+    ],
+
+
+    "Probability":[
+
+        {
+            q:"What is the probability of getting a head when a fair coin is tossed?",
+            options:["0","1/4","1/2","1"],
+            answer:"1/2",
+            explanation:"There are two equally likely outcomes: Head and Tail."
+        }
+
+    ],
+
+    "Advanced Percentages":[
+
+        {
+            q:"A value increases by 20% and then decreases by 20%. What is the net change?",
+            options:["0%","4% decrease","4% increase","2% decrease"],
+            answer:"4% decrease",
+            explanation:"Take 100 → 120 → 96. Net decrease = 4%."
+        }
+
+    ],
+
+    "Advanced Profit & Loss":[
+
+        {
+            q:"An item is sold for ₹1200 at a 20% profit. What was its cost price?",
+            options:["₹900","₹1000","₹1100","₹1150"],
+            answer:"₹1000",
+            explanation:"120% of CP = 1200, so CP = 1200/1.2 = ₹1000."
+        }
+
+    ],
+
+    "Permutation & Combination":[
+
+        {
+            q:"How many ways can 3 different books be arranged?",
+            options:["3","6","9","12"],
+            answer:"6",
+            explanation:"3! = 3 × 2 × 1 = 6."
+        }
+
+    ],
+
+    "Puzzles":[
+
+        {
+            q:"If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
+            options:[
+                "Yes, always",
+                "No, not necessarily",
+                "Only in winter",
+                "None"
+            ],
+            answer:"No, not necessarily",
+            explanation:"The statement does not establish that the roses are among the flowers that fade quickly."
+        }
+
+    ],
+
+    "Seating Arrangement":[
+
+        {
+            q:"If A sits immediately to the left of B, who is on the right of A?",
+            options:["A","B","C","Cannot determine"],
+            answer:"B",
+            explanation:"If A is immediately left of B, B is immediately right of A."
+        }
+
+    ],
+
+    "Data Sufficiency":[
+
+        {
+            q:"Is x > 10? Statement 1: x = 15. Is this statement sufficient?",
+            options:["Yes","No","Cannot say","None"],
+            answer:"Yes",
+            explanation:"If x = 15, then x is definitely greater than 10."
+        }
+
+    ],
+
+    "Data Interpretation":[
+
+        {
+            q:"A company sold 200 units in January and 300 units in February. What was the increase?",
+            options:["50","75","100","150"],
+            answer:"100",
+            explanation:"300 − 200 = 100 units."
+        }
+
+    ]
+
+};
+
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+function startAptitude(topic,level){
+
+    currentTopic = topic;
+    currentLevel = level;
+    aptitudeScore = 0;
+    currentQuestion = null;
+
+    document.getElementById("practiceLevel").textContent = level;
+    document.getElementById("practiceTopic").textContent = topic;
+    document.getElementById("practiceScore").textContent = "0";
+    document.getElementById("aptitudePracticeTitle").textContent = topic;
+    document.getElementById("aptitudePracticeSub").textContent =
+        level + " level AI-powered adaptive practice.";
+
+    showScreen("aptitudePractice");
+    generateAptitudeQuestion();
+}
+
+
+async function generateAptitudeQuestion(){
+
+    const questionBox = document.getElementById("aptitudeQuestion");
+    const optionsContainer = document.getElementById("aptitudeOptions");
+    const result = document.getElementById("aptitudeResult");
+
+    if(!currentTopic){
+        currentTopic = "Percentages";
+    }
+
+    if(!currentLevel){
+        currentLevel = "Beginner";
+    }
+
+    questionBox.textContent = "✦ Generating a fresh AI question...";
+    optionsContainer.innerHTML = "";
+    result.innerHTML = "";
+
+    try{
+
+        const response = await fetch(
+            "http://localhost:5000/api/aptitude/generate",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    topic:currentTopic,
+                    level:currentLevel
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success || !data.question){
+            throw new Error(data.message || "AI question generation failed");
+        }
+
+        const ai = data.question;
+
+        if(
+            !ai.question ||
+            !Array.isArray(ai.options) ||
+            ai.options.length !== 4 ||
+            !ai.correctAnswer
+        ){
+            throw new Error("Invalid question received from AI");
+        }
+
+        let correctIndex = -1;
+
+        if(/^[ABCD]$/i.test(String(ai.correctAnswer).trim())){
+            correctIndex =
+                "ABCD".indexOf(String(ai.correctAnswer).trim().toUpperCase());
+        }else{
+            correctIndex = ai.options.findIndex(
+                option =>
+                    String(option).trim().toLowerCase() ===
+                    String(ai.correctAnswer).trim().toLowerCase()
+            );
+        }
+
+        if(correctIndex < 0){
+            throw new Error("AI returned an invalid correct answer");
+        }
+
+        currentQuestion = {
+            q: ai.question,
+            options: ai.options.map(String),
+            answer: String(ai.options[correctIndex]),
+            answerLetter: "ABCD"[correctIndex],
+            explanation: ai.explanation || "AI explanation is not available."
+        };
+
+        questionBox.textContent = currentQuestion.q;
+
+        currentQuestion.options.forEach((option,index)=>{
+
+            const div = document.createElement("div");
+
+            div.className = "option";
+            div.dataset.answer = option;
+
+            div.textContent =
+                "ABCD"[index] + ". " + option;
+
+            div.onclick = function(){
+
+                document.querySelectorAll("#aptitudeOptions .option")
+                    .forEach(x=>x.classList.remove("selected"));
+
+                div.classList.add("selected");
+            };
+
+            optionsContainer.appendChild(div);
+        });
+
+    }catch(error){
+
+        console.error("Aptitude AI error:",error);
+
+        // Fallback keeps the demo usable without damaging the existing project.
+        const list = aptitudeQuestions[currentTopic] || aptitudeQuestions["Percentages"];
+
+        if(list && list.length){
+
+            const randomIndex = Math.floor(Math.random() * list.length);
+            currentQuestion = list[randomIndex];
+
+            questionBox.textContent = currentQuestion.q;
+            optionsContainer.innerHTML = "";
+
+            currentQuestion.options.forEach((option,index)=>{
+
+                const div = document.createElement("div");
+
+                div.className = "option";
+                div.dataset.answer = option;
+
+                div.textContent =
+                    "ABCD"[index] + ". " + option;
+
+                div.onclick = function(){
+
+                    document.querySelectorAll("#aptitudeOptions .option")
+                        .forEach(x=>x.classList.remove("selected"));
+
+                    div.classList.add("selected");
+                };
+
+                optionsContainer.appendChild(div);
+            });
+
+            result.innerHTML = `
+                <div class="result-box">
+                    <strong>Demo mode</strong><br>
+                    AI server is temporarily unavailable. A practice question
+                    was loaded so your session can continue.
+                </div>
+            `;
+
+        }else{
+
+            questionBox.textContent = "Unable to generate a question.";
+            result.innerHTML = `
+                <div class="result-box">
+                    Please start the CareerSense AI backend on port 5000.
+                </div>
+            `;
+        }
+    }
+}
+
+
+async function checkAptitudeAnswer(){
+
+    if(!currentQuestion){
+        toast("Generate a question first.");
+        return;
+    }
+
+    const selected = document.querySelector("#aptitudeOptions .option.selected");
+
+    if(!selected){
+        toast("Select an answer first.");
+        return;
+    }
+
+    const answer =
+        selected.dataset.answer ||
+        selected.textContent.replace(/^[ABCD]\.\s*/,"").trim();
+
+    const result = document.getElementById("aptitudeResult");
+
+    document.querySelectorAll("#aptitudeOptions .option")
+        .forEach(x=>{
+            x.style.pointerEvents = "none";
+        });
+
+    try{
+
+        const response = await fetch(
+            "http://localhost:5000/api/aptitude/answer",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    userId:(currentUser ? currentUser.id : null),
+                    topic:currentTopic,
+                    level:currentLevel,
+                    question:currentQuestion.q,
+                    userAnswer:answer,
+                    correctAnswer:currentQuestion.answer,
+                    explanation:currentQuestion.explanation
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success){
+            throw new Error(data.message || "Answer checking failed");
+        }
+
+        if(data.correct){
+
+            aptitudeScore++;
+
+            document.getElementById("practiceScore").textContent = aptitudeScore;
+
+            selected.classList.add("selected");
+
+            result.innerHTML = `
+                <div class="result-box correct">
+                    ✓ Correct!
+                    <br><br>
+                    <strong>Explanation:</strong><br>
+                    ${escapeHTML(data.explanation || currentQuestion.explanation)}
+                </div>
+                <div style="margin-top:15px;">
+                    <button class="btn btn-gold"
+                            onclick="generateAptitudeQuestion()">
+                        Next AI Question →
+                    </button>
+                </div>
+            `;
+
+        }else{
+
+            result.innerHTML = `
+                <div class="result-box wrong">
+                    ✕ Incorrect.
+                    <br><br>
+                    Correct answer:
+                    <strong>${escapeHTML(currentQuestion.answer)}</strong>
+                    <br><br>
+                    <strong>Explanation:</strong><br>
+                    ${escapeHTML(data.explanation || currentQuestion.explanation)}
+                </div>
+                <div style="margin-top:15px;">
+                    <button class="btn btn-gold"
+                            onclick="generateAptitudeQuestion()">
+                        Next AI Question →
+                    </button>
+                </div>
+            `;
+        }
+
+    }catch(error){
+
+        console.error("Aptitude answer error:",error);
+
+        // Local fallback for demo mode.
+        if(answer === currentQuestion.answer){
+
+            aptitudeScore++;
+            document.getElementById("practiceScore").textContent = aptitudeScore;
+
+            result.innerHTML = `
+                <div class="result-box correct">
+                    ✓ Correct!
+                    <br><br>
+                    <strong>Explanation:</strong><br>
+                    ${escapeHTML(currentQuestion.explanation)}
+                </div>
+                <div style="margin-top:15px;">
+                    <button class="btn btn-gold"
+                            onclick="generateAptitudeQuestion()">
+                        Next Question →
+                    </button>
+                </div>
+            `;
+
+        }else{
+
+            result.innerHTML = `
+                <div class="result-box wrong">
+                    ✕ Incorrect.
+                    <br><br>
+                    Correct answer:
+                    <strong>${escapeHTML(currentQuestion.answer)}</strong>
+                    <br><br>
+                    ${escapeHTML(currentQuestion.explanation)}
+                </div>
+                <div style="margin-top:15px;">
+                    <button class="btn btn-gold"
+                            onclick="generateAptitudeQuestion()">
+                        Next Question →
+                    </button>
+                </div>
+            `;
+        }
+    }
+}
+
+
+/* =========================================================
+   HR ANALYSIS
+========================================================= */
+
+function analyzeHR(){
+
+    const answer =
+        document.getElementById("hrAnswer")
+        .value.trim();
+
+    const result =
+        document.getElementById("hrResult");
+
+
+    if(!answer){
+
+        result.innerHTML = `
+            <div class="result-box">
+                Please enter your answer.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const words =
+        answer.split(/\s+/).length;
+
+
+    result.innerHTML = `
+
+        <div class="result-box">
+
+            <div class="eyebrow">AI HR Feedback</div>
+
+            <div class="metric-grid">
+
+                <div class="metric">
+                    <small>Communication</small>
+                    <strong>${Math.min(70 + Math.floor(words/3),92)}%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Structure</small>
+                    <strong>84%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Confidence</small>
+                    <strong>81%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Clarity</small>
+                    <strong>87%</strong>
+                </div>
+
+            </div>
+
+            <div class="insight">
+                Good foundation. Improve your answer by clearly explaining
+                your education, technical skills, achievements and career goal.
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   TECHNICAL INTERVIEW
+========================================================= */
+
+const technicalQuestions = {
+
+    "Programming":
+        "What is the difference between a compiler and an interpreter?",
+
+    "DSA":
+        "What is the difference between an array and a linked list?",
+
+    "DBMS":
+        "What is normalization in DBMS?",
+
+    "OOP":
+        "What are the four main principles of Object-Oriented Programming?",
+
+    "Operating Systems":
+        "What is the difference between a process and a thread?",
+
+    "Computer Networks":
+        "What is the difference between TCP and UDP?",
+
+    "AI/ML":
+        "What is the difference between supervised and unsupervised learning?",
+
+    "Web Development":
+        "What is the difference between frontend and backend development?"
+
+};
+
+
+let selectedTechnicalTopic = "";
+
+
+async function technicalTopic(topic){
+
+    selectedTechnicalTopic = topic;
+
+    const title = document.getElementById("technicalQuestionTitle");
+    const questionBox = document.getElementById("technicalQuestion");
+    const answerBox = document.getElementById("technicalAnswer");
+    const result = document.getElementById("technicalResult");
+
+    title.textContent = topic + " Interview";
+    questionBox.textContent = "✦ Generating a fresh AI technical question...";
+    answerBox.value = "";
+    result.innerHTML = "";
+
+    try{
+
+        const response = await fetch(
+            "http://localhost:5000/api/interview/question",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    role:"CSM / Computer Science Student",
+                    type:"Technical",
+                    difficulty:"Intermediate",
+                    topic:topic
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success || !data.question){
+            throw new Error(data.message || "Technical question generation failed");
+        }
+
+        questionBox.textContent = data.question;
+
+    }catch(error){
+
+        console.error("Technical AI error:",error);
+
+        questionBox.textContent =
+            technicalQuestions[topic] ||
+            "Unable to generate the technical question.";
+
+        result.innerHTML = `
+            <div class="result-box">
+                Demo question loaded because the AI server is temporarily unavailable.
+            </div>
+        `;
+    }
+}
+
+
+function analyzeTechnical(){
+
+    const answer =
+        document.getElementById("technicalAnswer")
+        .value.trim();
+
+    const result =
+        document.getElementById("technicalResult");
+
+
+    if(!answer){
+
+        result.innerHTML = `
+            <div class="result-box">
+                Please write your answer first.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    result.innerHTML = `
+
+        <div class="result-box">
+
+            <div class="eyebrow">AI Technical Feedback</div>
+
+            <div class="metric-grid">
+
+                <div class="metric">
+                    <small>Technical Relevance</small>
+                    <strong>86%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Accuracy</small>
+                    <strong>82%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Clarity</small>
+                    <strong>88%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Confidence</small>
+                    <strong>80%</strong>
+                </div>
+
+            </div>
+
+            <div class="insight">
+                Your answer has a good starting point.
+                In the real AI version, the backend will evaluate
+                the technical accuracy of your answer against the
+                expected concepts.
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   AI MOCK INTERVIEW
+========================================================= */
+
+let mockQuestionIndex = 0;
+
+
+const mockQuestions = {
+
+    "Software Developer":[
+        "Tell me about yourself.",
+        "What programming language are you most comfortable with?",
+        "Explain a project you have worked on.",
+        "What is your approach to solving a difficult programming problem?"
+    ],
+
+    "Full Stack Developer":[
+        "Tell me about yourself.",
+        "What is the difference between frontend and backend?",
+        "What is an API?",
+        "Explain a full-stack project you have built."
+    ],
+
+    "AI/ML Engineer":[
+        "Tell me about yourself.",
+        "What is machine learning?",
+        "What is the difference between supervised and unsupervised learning?",
+        "Explain an AI/ML project you have worked on."
+    ]
+
+};
+
+
+function startMockInterview(){
+
+    mockQuestionIndex = 0;
+
+    document.getElementById("mockInterviewArea")
+        .style.display = "block";
+
+    loadMockQuestion();
+
+}
+
+
+async function loadMockQuestion(){
+
+    const role =
+        document.getElementById("mockRole").value;
+
+    const difficulty =
+        document.getElementById("mockDifficulty").value;
+
+    const questions =
+        mockQuestions[role] || mockQuestions["Software Developer"];
+
+    if(mockQuestionIndex >= 4){
+
+        finishMockInterview();
+        return;
+    }
+
+    const questionBox = document.getElementById("mockQuestion");
+
+    questionBox.textContent =
+        "✦ AI interviewer is preparing your question...";
+
+    document.getElementById("mockAnswer").value = "";
+    document.getElementById("mockResult").innerHTML = "";
+
+    try{
+
+        const response = await fetch(
+            "http://localhost:5000/api/interview/question",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    role:role,
+                    type:"Mock Interview",
+                    difficulty:difficulty
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success || !data.question){
+            throw new Error(data.message || "Mock question generation failed");
+        }
+
+        questionBox.textContent = data.question;
+
+    }catch(error){
+
+        console.error("Mock interview AI error:",error);
+
+        questionBox.textContent =
+            questions[mockQuestionIndex] ||
+            "Tell me about yourself.";
+
+        document.getElementById("mockResult").innerHTML = `
+            <div class="result-box">
+                Demo question loaded because the AI server is temporarily unavailable.
+            </div>
+        `;
+    }
+}
+
+
+function analyzeMockAnswer(){
+
+    const answer =
+        document.getElementById("mockAnswer")
+        .value.trim();
+
+    const result =
+        document.getElementById("mockResult");
+
+
+    if(!answer){
+
+        result.innerHTML = `
+            <div class="result-box">
+                Please answer the question first.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const words =
+        answer.split(/\s+/).length;
+
+
+    const communication =
+        Math.min(70 + Math.floor(words/4),92);
+
+    const relevance =
+        Math.min(68 + Math.floor(words/5),90);
+
+    const confidence =
+        Math.min(72 + Math.floor(words/6),91);
+
+    const clarity =
+        Math.min(74 + Math.floor(words/5),92);
+
+
+    result.innerHTML = `
+
+        <div class="result-box">
+
+            <div class="eyebrow">
+                AI Response Analysis
+            </div>
+
+            <div class="metric-grid">
+
+                <div class="metric">
+                    <small>Communication</small>
+                    <strong>${communication}%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Technical Relevance</small>
+                    <strong>${relevance}%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Confidence</small>
+                    <strong>${confidence}%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Clarity</small>
+                    <strong>${clarity}%</strong>
+                </div>
+
+            </div>
+
+            <div class="insight">
+                Good response structure.
+                Try to provide a specific example or achievement
+                to make your answer stronger.
+            </div>
+
+            <button class="btn btn-primary"
+                    style="margin-top:20px;"
+                    onclick="nextMockQuestion()">
+                Next Question →
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+function nextMockQuestion(){
+
+    mockQuestionIndex++;
+
+    loadMockQuestion();
+
+}
+
+
+function finishMockInterview(){
+
+    document.getElementById("mockInterviewArea")
+        .innerHTML = `
+
+        <div class="workspace-card"
+             style="border:0;padding:0;">
+
+            <div class="eyebrow">
+                Interview Complete
+            </div>
+
+            <h2 style="font-size:42px;margin-bottom:20px;">
+                Mock Interview Finished
+            </h2>
+
+            <div class="metric-grid">
+
+                <div class="metric">
+                    <small>Communication</small>
+                    <strong>86%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Technical</small>
+                    <strong>82%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Confidence</small>
+                    <strong>84%</strong>
+                </div>
+
+                <div class="metric">
+                    <small>Overall</small>
+                    <strong>85</strong>
+                </div>
+
+            </div>
+
+            <div class="insight">
+                <strong>AI Recommendation:</strong><br><br>
+                Your communication is strong.
+                Focus next on technical depth and giving
+                specific examples from your projects.
+            </div>
+
+            <button class="btn btn-gold"
+                    style="margin-top:25px;"
+                    onclick="startMockInterview()">
+                Start Again →
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   DASHBOARD LOCAL STORAGE
+========================================================= */
+
+function saveProgress(){
+
+    localStorage.setItem(
+        "careerSenseProgress",
+        JSON.stringify({
+            english:82,
+            aptitude:76,
+            interview:74,
+            readiness:78
+        })
+    );
+
+}
+
+
+saveProgress();
+
+
+/* =========================================================
+   KEYBOARD SHORTCUT
+========================================================= */
+
+document.addEventListener("keydown",function(event){
+
+    if(event.key === "Escape"){
+
+        showScreen("home");
+
+    }
+
+});
+
+
+/* =========================================================
+   AUTHENTICATION SYSTEM (CLIENT ENGINE)
+========================================================= */
+
+const API_BASE = window.location.origin.includes(":5000") ? "" : "http://localhost:5000";
+
+let currentUser = null;
+let authToken = null;
+let authRedirectTarget = null;
+
+// ---------- Helper: Auth Alerts ----------
+function setAuthAlert(alertId, message, type = "error"){
+    const el = document.getElementById(alertId);
+    if(!el) return;
+    el.textContent = message;
+    el.className = "auth-alert " + (type === "success" ? "auth-alert-success" : "auth-alert-error");
+    el.style.display = "flex";
+}
+
+function clearAuthAlerts(){
+    ["loginAlert", "signupAlert", "forgotAlert"].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el){
+            el.style.display = "none";
+            el.textContent = "";
+        }
+    });
+}
+
+// ---------- Helper: Button Loading ----------
+function setButtonLoading(btnId, isLoading, defaultText, loadingText){
+    const btn = document.getElementById(btnId);
+    if(!btn) return;
+    btn.disabled = isLoading;
+    const textSpan = btn.querySelector(".btn-text");
+    const spinnerSpan = btn.querySelector(".btn-spinner");
+    if(textSpan) textSpan.style.display = isLoading ? "none" : "inline-block";
+    if(spinnerSpan) spinnerSpan.style.display = isLoading ? "inline-flex" : "none";
+}
+
+// ---------- Password Visibility Toggle ----------
+function togglePasswordVisibility(inputId, btn){
+    const input = document.getElementById(inputId);
+    if(!input) return;
+    const isPassword = input.type === "password";
+    input.type = isPassword ? "text" : "password";
+    const eyeOpen = btn.querySelector(".eye-open");
+    const eyeClosed = btn.querySelector(".eye-closed");
+    if(eyeOpen && eyeClosed){
+        eyeOpen.style.display = isPassword ? "none" : "block";
+        eyeClosed.style.display = isPassword ? "block" : "none";
+    }
+}
+
+// ---------- Password Strength Meter ----------
+function evaluatePasswordStrength(password){
+    const bar = document.getElementById("strengthBar");
+    const label = document.getElementById("strengthText");
+    if(!bar || !label) return 0;
+
+    if(!password){
+        bar.style.width = "0%";
+        bar.style.backgroundColor = "transparent";
+        label.textContent = "Enter password";
+        label.style.color = "#888";
+        return 0;
+    }
+
+    let score = 0;
+    if(password.length >= 6) score += 1;
+    if(password.length >= 10) score += 1;
+    if(/[A-Z]/.test(password) && /[a-z]/.test(password)) score += 1;
+    if(/[0-9]/.test(password)) score += 1;
+    if(/[^A-Za-z0-9]/.test(password)) score += 1;
+
+    if(score <= 1){
+        bar.style.width = "25%";
+        bar.style.backgroundColor = "#ef4444";
+        label.textContent = "Weak (use 6+ chars, add numbers)";
+        label.style.color = "#ef4444";
+    }else if(score === 2){
+        bar.style.width = "50%";
+        bar.style.backgroundColor = "#eab308";
+        label.textContent = "Fair (mix letters, numbers, symbols)";
+        label.style.color = "#eab308";
+    }else if(score === 3 || score === 4){
+        bar.style.width = "75%";
+        bar.style.backgroundColor = "#d4af37";
+        label.textContent = "Good password";
+        label.style.color = "#d4af37";
+    }else{
+        bar.style.width = "100%";
+        bar.style.backgroundColor = "#10b981";
+        label.textContent = "Strong password 🛡️";
+        label.style.color = "#10b981";
+    }
+
+    return score;
+}
+
+// ---------- Confirm Password Live Match ----------
+function validatePasswordMatch(){
+    const pwdInput = document.getElementById("signupPassword");
+    const confirmInput = document.getElementById("signupConfirmPassword");
+    const feedback = document.getElementById("matchFeedback");
+    if(!feedback || !confirmInput) return;
+
+    const pwd = pwdInput ? pwdInput.value : "";
+    const confirm = confirmInput.value;
+
+    if(!confirm){
+        feedback.style.display = "none";
+        return;
+    }
+
+    feedback.style.display = "block";
+    if(pwd === confirm){
+        feedback.textContent = "✓ Passwords match";
+        feedback.style.color = "#10b981";
+    }else{
+        feedback.textContent = "✗ Passwords do not match";
+        feedback.style.color = "#ef4444";
+    }
+}
+
+// ---------- Save Session Helper ----------
+function saveAuthSession(user, token, rememberMe = true){
+    currentUser = user;
+    authToken = token;
+
+    const storage = rememberMe ? localStorage : sessionStorage;
+    storage.setItem("careerSenseToken", token);
+    storage.setItem("careerSenseUser", JSON.stringify(user));
+
+    const altStorage = rememberMe ? sessionStorage : localStorage;
+    altStorage.removeItem("careerSenseToken");
+    altStorage.removeItem("careerSenseUser");
+
+    updateAuthUI();
+}
+
+// ---------- Logout ----------
+function logoutUser(){
+    currentUser = null;
+    authToken = null;
+    authRedirectTarget = null;
+
+    localStorage.removeItem("careerSenseToken");
+    localStorage.removeItem("careerSenseUser");
+    sessionStorage.removeItem("careerSenseToken");
+    sessionStorage.removeItem("careerSenseUser");
+
+    updateAuthUI();
+    toast("You have been signed out successfully.");
+    showScreen("home");
+}
+
+// ---------- Update Navbar and Dashboard UI ----------
+function updateAuthUI(){
+    const loggedOutSpan = document.getElementById("navAuthLoggedOut");
+    const loggedInSpan = document.getElementById("navAuthLoggedIn");
+    const navDisplayName = document.getElementById("navUserDisplayName");
+    const dashName = document.getElementById("dashboardUserName");
+    const dashEmail = document.getElementById("dashboardUserEmail");
+    const dashInitial = document.getElementById("dashboardAvatarInitial");
+
+    if(currentUser){
+        if(loggedOutSpan) loggedOutSpan.style.display = "none";
+        if(loggedInSpan) loggedInSpan.style.display = "flex";
+
+        const firstName = (currentUser.name || "User").split(" ")[0];
+        if(navDisplayName) navDisplayName.textContent = firstName;
+
+        if(dashName) dashName.textContent = currentUser.name || "Member";
+        if(dashEmail) dashEmail.textContent = currentUser.email || "";
+        if(dashInitial) dashInitial.textContent = (currentUser.name || "U")[0].toUpperCase();
+
+        loadDashboardUserStats();
+    }else{
+        if(loggedOutSpan) loggedOutSpan.style.display = "flex";
+        if(loggedInSpan) loggedInSpan.style.display = "none";
+
+        if(dashName) dashName.textContent = "Guest User";
+        if(dashEmail) dashEmail.textContent = "Please sign in to view your dashboard";
+        if(dashInitial) dashInitial.textContent = "G";
+    }
+}
+
+// ---------- Load Dashboard Stats for Current User ----------
+async function loadDashboardUserStats(){
+    if(!currentUser || !currentUser.id) return;
+
+    try{
+        const response = await fetch(`${API_BASE}/api/dashboard/${currentUser.id}`);
+        if(!response.ok) return;
+
+        const data = await response.json();
+        if(data.success){
+            const aptScore = data.aptitude && data.aptitude.total > 0
+                ? Math.round(((data.aptitude.correct || 0) / data.aptitude.total) * 100)
+                : 76;
+
+            const dashScoreEl = document.getElementById("dashboardScore");
+            if(dashScoreEl && data.aptitude && data.aptitude.total > 0){
+                dashScoreEl.textContent = Math.min(Math.max(aptScore, 65), 98);
+            }
+        }
+    }catch(err){
+        console.warn("Dashboard sync error:", err);
+    }
+}
+
+// ---------- LOGIN SUBMISSION ----------
+async function handleLoginSubmit(event){
+    event.preventDefault();
+    clearAuthAlerts();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const rememberMe = document.getElementById("loginRemember").checked;
+
+    if(!email || !password){
+        setAuthAlert("loginAlert", "Please enter both your email address and password.", "error");
+        return;
+    }
+
+    setButtonLoading("loginSubmitBtn", true, "Sign In →", "Authenticating...");
+
+    try{
+        const response = await fetch(`${API_BASE}/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password,
+                rememberMe
+            })
+        });
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success){
+            setButtonLoading("loginSubmitBtn", false, "Sign In →", "Authenticating...");
+            setAuthAlert("loginAlert", data.message || "Invalid credentials. Please try again.", "error");
+            return;
+        }
+
+        saveAuthSession(data.user, data.token, rememberMe);
+        setButtonLoading("loginSubmitBtn", false, "Sign In →", "Authenticating...");
+
+        toast(`Welcome back, ${data.user.name}!`);
+
+        const destination = authRedirectTarget || "dashboard";
+        authRedirectTarget = null;
+        showScreen(destination);
+
+    }catch(error){
+        console.error("Login fetch error:", error);
+        setButtonLoading("loginSubmitBtn", false, "Sign In →", "Authenticating...");
+        setAuthAlert("loginAlert", "Unable to connect to authentication server. Please check backend.", "error");
+    }
+}
+
+// ---------- SIGNUP SUBMISSION ----------
+async function handleSignupSubmit(event){
+    event.preventDefault();
+    clearAuthAlerts();
+
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("signupConfirmPassword").value;
+    const terms = document.getElementById("signupTerms").checked;
+
+    if(!name){
+        setAuthAlert("signupAlert", "Please enter your full name.", "error");
+        return;
+    }
+
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        setAuthAlert("signupAlert", "Please provide a valid email address.", "error");
+        return;
+    }
+
+    if(!password || password.length < 6){
+        setAuthAlert("signupAlert", "Password must be at least 6 characters long.", "error");
+        return;
+    }
+
+    if(password !== confirmPassword){
+        setAuthAlert("signupAlert", "Passwords do not match. Please re-enter.", "error");
+        return;
+    }
+
+    if(!terms){
+        setAuthAlert("signupAlert", "You must agree to the Terms of Service and Privacy Policy.", "error");
+        return;
+    }
+
+    setButtonLoading("signupSubmitBtn", true, "Create Account →", "Creating Account...");
+
+    try{
+        const response = await fetch(`${API_BASE}/api/auth/signup`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password,
+                confirmPassword
+            })
+        });
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success){
+            setButtonLoading("signupSubmitBtn", false, "Create Account →", "Creating Account...");
+            setAuthAlert("signupAlert", data.message || "Failed to create account.", "error");
+            return;
+        }
+
+        saveAuthSession(data.user, data.token, true);
+        setButtonLoading("signupSubmitBtn", false, "Create Account →", "Creating Account...");
+
+        toast(`Account created! Welcome to CareerSense AI, ${data.user.name}!`);
+
+        const destination = authRedirectTarget || "dashboard";
+        authRedirectTarget = null;
+        showScreen(destination);
+
+    }catch(error){
+        console.error("Signup fetch error:", error);
+        setButtonLoading("signupSubmitBtn", false, "Create Account →", "Creating Account...");
+        setAuthAlert("signupAlert", "Unable to connect to authentication server. Please check backend connection.", "error");
+    }
+}
+
+// ---------- FORGOT PASSWORD SUBMISSION ----------
+async function handleForgotSubmit(event){
+    event.preventDefault();
+    clearAuthAlerts();
+
+    const email = document.getElementById("forgotEmail").value.trim();
+
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        setAuthAlert("forgotAlert", "Please enter a valid email address.", "error");
+        return;
+    }
+
+    setButtonLoading("forgotSubmitBtn", true, "Send Reset Link →", "Generating Instructions...");
+
+    try{
+        const response = await fetch(`${API_BASE}/api/auth/forgot-password`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+        setButtonLoading("forgotSubmitBtn", false, "Send Reset Link →", "Generating Instructions...");
+
+        if(data.success){
+            setAuthAlert("forgotAlert", data.message || "Password recovery instructions generated.", "success");
+
+            if(data.resetToken){
+                const resetForm = document.getElementById("resetForm");
+                const resetTokenInput = document.getElementById("resetTokenInput");
+                if(resetForm && resetTokenInput){
+                    resetTokenInput.value = data.resetToken;
+                    resetForm.style.display = "block";
+                    resetForm.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        }else{
+            setAuthAlert("forgotAlert", data.message || "Could not process request.", "error");
+        }
+    }catch(error){
+        console.error("Forgot password error:", error);
+        setButtonLoading("forgotSubmitBtn", false, "Send Reset Link →", "Generating Instructions...");
+        setAuthAlert("forgotAlert", "Connection error. Please ensure backend is running.", "error");
+    }
+}
+
+// ---------- RESET PASSWORD SUBMISSION ----------
+async function handleResetSubmit(event){
+    event.preventDefault();
+    clearAuthAlerts();
+
+    const token = document.getElementById("resetTokenInput").value.trim();
+    const newPassword = document.getElementById("resetNewPassword").value;
+    const confirmPassword = document.getElementById("resetConfirmPassword").value;
+
+    if(!token){
+        setAuthAlert("forgotAlert", "Reset token is required.", "error");
+        return;
+    }
+
+    if(!newPassword || newPassword.length < 6){
+        setAuthAlert("forgotAlert", "New password must be at least 6 characters long.", "error");
+        return;
+    }
+
+    if(newPassword !== confirmPassword){
+        setAuthAlert("forgotAlert", "Passwords do not match.", "error");
+        return;
+    }
+
+    setButtonLoading("resetSubmitBtn", true, "Update Password →", "Updating Password...");
+
+    try{
+        const response = await fetch(`${API_BASE}/api/auth/reset-password`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                token,
+                newPassword,
+                confirmPassword
+            })
+        });
+
+        const data = await response.json();
+        setButtonLoading("resetSubmitBtn", false, "Update Password →", "Updating Password...");
+
+        if(!response.ok || !data.success){
+            setAuthAlert("forgotAlert", data.message || "Failed to reset password.", "error");
+            return;
+        }
+
+        toast("Password updated successfully! Please log in.");
+        showScreen("login");
+        setAuthAlert("loginAlert", "Password updated successfully. Please log in with your new password.", "success");
+
+    }catch(error){
+        console.error("Reset password error:", error);
+        setButtonLoading("resetSubmitBtn", false, "Update Password →", "Updating Password...");
+        setAuthAlert("forgotAlert", "Connection error. Please try again.", "error");
+    }
+}
+
+// ---------- GOOGLE AUTH (UI / DEMO HANDLER) ----------
+async function handleGoogleAuth(){
+    try{
+        toast("Authenticating with Google...");
+        const response = await fetch(`${API_BASE}/api/auth/google`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: "Alex Johnson",
+                email: "alex.career@gmail.com"
+            })
+        });
+
+        const data = await response.json();
+
+        if(data.success && data.token){
+            saveAuthSession(data.user, data.token, true);
+            toast(`Welcome, ${data.user.name}! (Signed in with Google)`);
+            const target = authRedirectTarget || "dashboard";
+            authRedirectTarget = null;
+            showScreen(target);
+        }else{
+            toast(data.message || "Google authentication failed.");
+        }
+    }catch(error){
+        console.error("Google auth error:", error);
+        toast("Unable to connect to Google authentication service.");
+    }
+}
+
+// ---------- INITIALIZE AUTH ON STARTUP ----------
+async function initAuth(){
+    const storedToken = localStorage.getItem("careerSenseToken") || sessionStorage.getItem("careerSenseToken");
+    const storedUser = localStorage.getItem("careerSenseUser") || sessionStorage.getItem("careerSenseUser");
+
+    if(storedToken && storedUser){
+        try{
+            authToken = storedToken;
+            currentUser = JSON.parse(storedUser);
+            updateAuthUI();
+
+            const response = await fetch(`${API_BASE}/api/auth/me`, {
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
+
+            if(response.ok){
+                const data = await response.json();
+                if(data.success && data.user){
+                    currentUser = data.user;
+                    updateAuthUI();
+                }
+            }else if(response.status === 401){
+                logoutUser();
+            }
+        }catch(err){
+            console.warn("Session check error:", err);
+            updateAuthUI();
+        }
+    }else{
+        updateAuthUI();
+    }
+}
+
+initAuth();
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+console.log(
+    "CareerSense AI loaded successfully."
+);
+
+</script>
+
+</body>
+</html>
