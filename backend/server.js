@@ -78,9 +78,76 @@ db.prepare(`
     )
 `).run();
 
+db.prepare(`
+    CREATE TABLE IF NOT EXISTS user_progress (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id TEXT UNIQUE,
+        streak INTEGER DEFAULT 1,
+        completed_topics TEXT DEFAULT '[]',
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+`).run();
+
+db.prepare(`
+    CREATE TABLE IF NOT EXISTS english_progress (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id TEXT UNIQUE,
+        score INTEGER DEFAULT 0,
+        completed_count INTEGER DEFAULT 0,
+        last_activity TEXT DEFAULT 'None',
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+`).run();
+
+db.prepare(`
+    CREATE TABLE IF NOT EXISTS aptitude_progress (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id TEXT UNIQUE,
+        score INTEGER DEFAULT 0,
+        completed_count INTEGER DEFAULT 0,
+        correct_count INTEGER DEFAULT 0,
+        last_activity TEXT DEFAULT 'None',
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+`).run();
+
+db.prepare(`
+    CREATE TABLE IF NOT EXISTS interview_progress (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id TEXT UNIQUE,
+        score INTEGER DEFAULT 0,
+        completed_count INTEGER DEFAULT 0,
+        last_role TEXT DEFAULT 'General',
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+`).run();
+
+// Initialize Progress Service
+const ProgressService = require("./services/progressService");
+const progressService = new ProgressService(db);
+
+// Optional MongoDB Connection if MONGO_URI is set
+if (process.env.MONGO_URI) {
+    const mongoose = require("mongoose");
+    mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 3000 })
+        .then(() => console.log("MongoDB Connected Successfully 🍃"))
+        .catch(err => console.log("MongoDB Connection Note: Falling back to SQLite:", err.message));
+}
+
 // ================= AUTHENTICATION & STATIC =================
 
 app.use("/api/auth", createAuthRoutes(db));
+
+// Modular Dashboard and Progress Routes
+const createDashboardRoutes = require("./routes/dashboardRoutes");
+const createEnglishRoutes = require("./routes/englishRoutes");
+const createAptitudeRoutes = require("./routes/aptitudeRoutes");
+const createInterviewRoutes = require("./routes/interviewRoutes");
+
+app.use("/api/dashboard", createDashboardRoutes(progressService, db));
+app.use("/api/english", createEnglishRoutes(progressService));
+app.use("/api/aptitude", createAptitudeRoutes(progressService));
+app.use("/api/interview", createInterviewRoutes(progressService));
 
 // Serve static frontend assets
 app.use(express.static(path.join(__dirname, "..")));
@@ -280,6 +347,18 @@ app.post("/api/aptitude/answer", (req, res) => {
         isCorrect ? 1 : 0,
         explanation
     );
+
+    if (userId) {
+        try {
+            progressService.updateAptitudeProgress(userId, {
+                topic: topic || "General Aptitude",
+                isCorrect,
+                scoreGain: 5
+            });
+        } catch (err) {
+            console.error("Progress update error:", err);
+        }
+    }
 
     res.json({
         success: true,

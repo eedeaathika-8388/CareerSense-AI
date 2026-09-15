@@ -354,6 +354,14 @@ function createAuthRoutes(db) {
         }
     });
 
+    // ================= LOGOUT =================
+    router.post("/logout", (req, res) => {
+        res.json({
+            success: true,
+            message: "User logged out successfully."
+        });
+    });
+
     return router;
 }
 

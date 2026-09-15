@@ -3526,7 +3526,7 @@ footer strong{
             <span>CAREER READINESS SCORE</span>
 
             <strong id="dashboardScore">
-                78
+                --
             </strong>
 
             <span>out of 100</span>
@@ -3538,14 +3538,14 @@ footer strong{
 
             <div class="eyebrow">AI Recommendation</div>
 
-            <h3>Focus on weak areas</h3>
+            <h3 id="dashRecTitle">Personalizing your career path...</h3>
 
-            <p>
-                Practice percentages in aptitude and improve vocabulary
-                variety in English communication.
+            <p id="dashRecText">
+                Loading your latest progress and recommendations from the server...
             </p>
 
             <button class="btn btn-gold"
+                    id="dashRecBtn"
                     style="margin-top:20px;"
                     onclick="showScreen('aptitude')">
                 Practice Now →
@@ -3562,10 +3562,10 @@ footer strong{
 
             <small>English Communication</small>
 
-            <strong>82%</strong>
+            <strong id="dashEnglishPercent">0%</strong>
 
             <div class="progress">
-                <span style="width:82%"></span>
+                <span id="dashEnglishBar" style="width:0%"></span>
             </div>
 
         </div>
@@ -3575,10 +3575,10 @@ footer strong{
 
             <small>Aptitude</small>
 
-            <strong>76%</strong>
+            <strong id="dashAptitudePercent">0%</strong>
 
             <div class="progress">
-                <span style="width:76%"></span>
+                <span id="dashAptitudeBar" style="width:0%"></span>
             </div>
 
         </div>
@@ -3588,10 +3588,10 @@ footer strong{
 
             <small>Interview Skills</small>
 
-            <strong>74%</strong>
+            <strong id="dashInterviewPercent">0%</strong>
 
             <div class="progress">
-                <span style="width:74%"></span>
+                <span id="dashInterviewBar" style="width:0%"></span>
             </div>
 
         </div>
@@ -3601,9 +3601,9 @@ footer strong{
 
             <small>Practice Streak</small>
 
-            <strong>7</strong>
+            <strong id="dashStreak">1</strong>
 
-            <small>days</small>
+            <small id="dashStreakLabel">day streak</small>
 
         </div>
 
@@ -3617,8 +3617,7 @@ footer strong{
         <h2>Track. Detect. Improve.</h2>
 
         <p>
-            CareerSense AI is designed to identify weaknesses over time
-            and personalize future practice.
+            Real-time analytics updated as you complete modules and practice sessions.
         </p>
 
     </div>
@@ -3627,29 +3626,38 @@ footer strong{
     <div class="flow">
 
         <div class="flow-item">
-            <span>DAY 1</span>
-            <strong>Grammar 62%</strong>
-            <span>Fluency 55%</span>
+            <span>ENGLISH</span>
+            <strong id="dashFlowEnglish">0 completed</strong>
+            <span id="dashFlowEnglishScore">Score: 0%</span>
         </div>
 
         <div class="flow-item">
-            <span>DAY 4</span>
-            <strong>Grammar 68%</strong>
-            <span>Vocabulary 66%</span>
+            <span>APTITUDE</span>
+            <strong id="dashFlowAptitude">0 completed</strong>
+            <span id="dashFlowAptitudeScore">Score: 0%</span>
         </div>
 
         <div class="flow-item">
-            <span>DAY 7</span>
-            <strong>Grammar 74%</strong>
-            <span>Fluency 70%</span>
+            <span>INTERVIEW</span>
+            <strong id="dashFlowInterview">0 completed</strong>
+            <span id="dashFlowInterviewScore">Score: 0%</span>
         </div>
 
         <div class="flow-item">
-            <span>AI</span>
-            <strong>+12%</strong>
-            <span>Grammar improvement</span>
+            <span>TOTAL READINESS</span>
+            <strong id="dashFlowTotal">0 activities</strong>
+            <span id="dashFlowOverall">Overall: 0%</span>
         </div>
 
+    </div>
+
+    <!-- Recent Completed Activities Badges -->
+    <div id="dashCompletedSection" style="margin-top:40px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;">
+        <div class="eyebrow" style="margin-bottom:8px;">Completed Activities & Topics</div>
+        <p style="font-size:13px;color:#888;margin-bottom:14px;">Topics you have practiced and verified with the backend:</p>
+        <div id="dashCompletedList" style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span style="color:#666;font-size:13px;font-style:italic;">No activities recorded yet. Complete English, Aptitude, or Interview practice to track here.</span>
+        </div>
     </div>
 
 </section>
@@ -3972,6 +3980,10 @@ function showScreen(screenId){
             top:0,
             behavior:"smooth"
         });
+
+        if(screenId === "dashboard"){
+            loadDashboardUserStats();
+        }
     }
 
     const navLinks = document.getElementById("navLinks");
@@ -4175,6 +4187,8 @@ async function translateText(){
             telugu.textContent = "Original English: " + input;
         }
 
+        recordEnglishProgress("Translation (" + targetLanguage + ")", 5);
+
     }catch(error){
 
         console.error("Translation error:",error);
@@ -4254,6 +4268,8 @@ function checkDailyAnswer(){
 
     }
 
+    const isCorrect = answer.includes("college") && (answer.includes("go") || answer.includes("have"));
+    recordEnglishProgress("Daily Conversation Practice", isCorrect ? 8 : 4);
 }
 
 
@@ -4338,6 +4354,7 @@ function analyzeSpeaking(){
 
     `;
 
+    recordEnglishProgress("Speaking & Fluency Analysis", 8);
 }
 
 
@@ -4381,6 +4398,8 @@ function checkCorrection(){
 
     }
 
+    const isCorrect = answer.includes("for three years") || answer.includes("for 3 years");
+    recordEnglishProgress("Sentence Correction", isCorrect ? 8 : 4);
 }
 
 
@@ -4854,6 +4873,8 @@ async function checkAptitudeAnswer(){
             throw new Error(data.message || "Answer checking failed");
         }
 
+        recordAptitudeProgress(currentTopic || "Aptitude Practice", !!data.correct, 5);
+
         if(data.correct){
 
             aptitudeScore++;
@@ -5016,6 +5037,7 @@ function analyzeHR(){
 
     `;
 
+    recordInterviewProgress("HR Interview", 6);
 }
 
 
@@ -5176,6 +5198,7 @@ function analyzeTechnical(){
 
     `;
 
+    recordInterviewProgress("Technical Interview", 6);
 }
 
 
@@ -5379,6 +5402,7 @@ function analyzeMockAnswer(){
 
     `;
 
+    recordInterviewProgress("Mock Interview Question", 6);
 }
 
 
@@ -5631,6 +5655,9 @@ function saveAuthSession(user, token, rememberMe = true){
 
 // ---------- Logout ----------
 function logoutUser(){
+    if(authToken){
+        fetch(`${API_BASE}/api/auth/logout`, { method: "POST" }).catch(() => {});
+    }
     currentUser = null;
     authToken = null;
     authRedirectTarget = null;
@@ -5678,25 +5705,161 @@ function updateAuthUI(){
 
 // ---------- Load Dashboard Stats for Current User ----------
 async function loadDashboardUserStats(){
-    if(!currentUser || !currentUser.id) return;
+    if(!currentUser) return;
+
+    const dashScoreEl = document.getElementById("dashboardScore");
+    const recTitleEl = document.getElementById("dashRecTitle");
+    const recTextEl = document.getElementById("dashRecText");
+    const engPercentEl = document.getElementById("dashEnglishPercent");
+    const engBarEl = document.getElementById("dashEnglishBar");
+    const aptPercentEl = document.getElementById("dashAptitudePercent");
+    const aptBarEl = document.getElementById("dashAptitudeBar");
+    const intPercentEl = document.getElementById("dashInterviewPercent");
+    const intBarEl = document.getElementById("dashInterviewBar");
+    const streakEl = document.getElementById("dashStreak");
+    const flowEnglish = document.getElementById("dashFlowEnglish");
+    const flowEnglishScore = document.getElementById("dashFlowEnglishScore");
+    const flowAptitude = document.getElementById("dashFlowAptitude");
+    const flowAptitudeScore = document.getElementById("dashFlowAptitudeScore");
+    const flowInterview = document.getElementById("dashFlowInterview");
+    const flowInterviewScore = document.getElementById("dashFlowInterviewScore");
+    const flowTotal = document.getElementById("dashFlowTotal");
+    const flowOverall = document.getElementById("dashFlowOverall");
+    const completedList = document.getElementById("dashCompletedList");
 
     try{
-        const response = await fetch(`${API_BASE}/api/dashboard/${currentUser.id}`);
+        const headers = {};
+        if(authToken) headers["Authorization"] = `Bearer ${authToken}`;
+
+        const url = authToken ? `${API_BASE}/api/dashboard` : `${API_BASE}/api/dashboard/${currentUser.id}`;
+        const response = await fetch(url, { headers });
         if(!response.ok) return;
 
         const data = await response.json();
-        if(data.success){
-            const aptScore = data.aptitude && data.aptitude.total > 0
-                ? Math.round(((data.aptitude.correct || 0) / data.aptitude.total) * 100)
-                : 76;
+        if(!data.success) return;
 
-            const dashScoreEl = document.getElementById("dashboardScore");
-            if(dashScoreEl && data.aptitude && data.aptitude.total > 0){
-                dashScoreEl.textContent = Math.min(Math.max(aptScore, 65), 98);
+        const p = data.progress || {};
+        const eng = data.english || { score: 0, completedCount: 0 };
+        const apt = data.aptitude || { score: 0, completedCount: 0 };
+        const interview = data.interview || { score: 0, completedCount: 0 };
+
+        // 1. Overall Score
+        if(dashScoreEl){
+            dashScoreEl.textContent = p.overallScore !== undefined ? p.overallScore : 0;
+        }
+
+        // 2. Metrics & Progress Bars
+        if(engPercentEl) engPercentEl.textContent = `${eng.score}%`;
+        if(engBarEl) engBarEl.style.width = `${eng.score}%`;
+
+        if(aptPercentEl) aptPercentEl.textContent = `${apt.score}%`;
+        if(aptBarEl) aptBarEl.style.width = `${apt.score}%`;
+
+        if(intPercentEl) intPercentEl.textContent = `${interview.score}%`;
+        if(intBarEl) intBarEl.style.width = `${interview.score}%`;
+
+        if(streakEl) streakEl.textContent = p.streak || 1;
+
+        // 3. AI Recommendation
+        if(recTitleEl && p.recommendedFocus && p.recommendedFocus.title){
+            recTitleEl.textContent = p.recommendedFocus.title;
+        }
+        if(recTextEl && p.recommendedFocus && p.recommendedFocus.text){
+            recTextEl.textContent = p.recommendedFocus.text;
+        }
+
+        // 4. Flow Summary Cards
+        if(flowEnglish) flowEnglish.textContent = `${eng.completedCount} completed`;
+        if(flowEnglishScore) flowEnglishScore.textContent = `Score: ${eng.score}%`;
+
+        if(flowAptitude) flowAptitude.textContent = `${apt.completedCount} completed`;
+        if(flowAptitudeScore) flowAptitudeScore.textContent = `Score: ${apt.score}%`;
+
+        if(flowInterview) flowInterview.textContent = `${interview.completedCount} completed`;
+        if(flowInterviewScore) flowInterviewScore.textContent = `Score: ${interview.score}%`;
+
+        if(flowTotal) flowTotal.textContent = `${p.totalCompletedActivities || 0} activities`;
+        if(flowOverall) flowOverall.textContent = `Overall: ${p.overallScore}%`;
+
+        // 5. Completed Topics Badges
+        if(completedList){
+            const topics = p.completedTopics || [];
+            if(topics.length > 0){
+                completedList.innerHTML = topics.map(t => `
+                    <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.25);color:#d4af37;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">
+                        <i style="width:6px;height:6px;border-radius:50%;background:#10b981;display:inline-block;"></i>
+                        ${escapeHTML(t)}
+                    </span>
+                `).join("");
+            } else {
+                completedList.innerHTML = `<span style="color:#666;font-size:13px;font-style:italic;">No activities recorded yet. Complete English, Aptitude, or Interview practice to track here.</span>`;
             }
         }
     }catch(err){
         console.warn("Dashboard sync error:", err);
+    }
+}
+
+// ---------- PROGRESS UPDATE HELPERS ----------
+async function recordEnglishProgress(activityName = "English Practice", scoreGain = 5){
+    if(!authToken) return;
+    try{
+        await fetch(`${API_BASE}/api/english/progress`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ activityName, scoreGain })
+        });
+        toast(`Progress updated: ${activityName} (+${scoreGain} pts)`);
+    }catch(err){
+        console.warn("English progress update error:", err);
+    }
+}
+
+async function recordAptitudeProgress(topic = "Aptitude Practice", isCorrect = true, scoreGain = 5){
+    if(!authToken) return;
+    try{
+        await fetch(`${API_BASE}/api/aptitude/progress`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ topic, isCorrect, scoreGain })
+        });
+        toast(isCorrect ? `Aptitude progress saved (+${scoreGain} pts)` : `Aptitude practice recorded`);
+    }catch(err){
+        console.warn("Aptitude progress update error:", err);
+    }
+}
+
+async function recordInterviewProgress(role = "Interview Practice", scoreGain = 6){
+    if(!authToken) return;
+    try{
+        await fetch(`${API_BASE}/api/interview/progress`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ role, scoreGain })
+        });
+        toast(`Interview practice saved (+${scoreGain} pts)`);
+    }catch(err){
+        console.warn("Interview progress update error:", err);
+    }
+}
+
+function handleRecommendationClick(){
+    const title = (document.getElementById("dashRecTitle")?.textContent || "").toLowerCase();
+    if(title.includes("english")){
+        showScreen("english");
+    } else if(title.includes("interview")){
+        showScreen("interview");
+    } else {
+        showScreen("aptitude");
     }
 }
 
